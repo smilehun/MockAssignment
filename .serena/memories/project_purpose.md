@@ -1,0 +1,1 @@
+The project is a modern, feature-rich admin dashboard built with Angular 19, PrimeNG, and Tailwind CSS. It provides a comprehensive solution for user management, analytics, and administrative tasks.

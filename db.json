@@ -1,0 +1,94 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "admin",
+      "password": "admin",
+      "email": "admin@example.com",
+      "role": "admin",
+      "name": "Admin User",
+      "status": "active"
+    },
+    {
+      "id": "2",
+      "username": "user_alpha",
+      "password": "user",
+      "email": "user_alpha@example.com",
+      "role": "user",
+      "name": "Alpha User",
+      "status": "active"
+    },
+    {
+      "id": "3",
+      "username": "user_beta",
+      "password": "user",
+      "email": "user_beta@example.com",
+      "role": "user",
+      "name": "Beta User",
+      "status": "inactive"
+    },
+    {
+      "id": "4",
+      "username": "user_gamma",
+      "password": "user",
+      "email": "user_gamma@example.com",
+      "role": "user",
+      "name": "Gamma User",
+      "status": "pending"
+    },
+    {
+      "id": "5",
+      "username": "user_delta",
+      "password": "user",
+      "email": "user_delta@example.com",
+      "role": "user",
+      "name": "Delta User",
+      "status": "active"
+    },
+    {
+      "id": "6",
+      "username": "user_epsilon",
+      "password": "user",
+      "email": "user_epsilon@example.com",
+      "role": "user",
+      "name": "Epsilon User",
+      "status": "inactive"
+    },
+    {
+      "id": "7",
+      "username": "user_zeta",
+      "password": "user",
+      "email": "user_zeta@example.com",
+      "role": "user",
+      "name": "Zeta User",
+      "status": "pending"
+    },
+    {
+      "id": "8",
+      "username": "user_eta",
+      "password": "user",
+      "email": "user_eta@example.com",
+      "role": "user",
+      "name": "Eta User",
+      "status": "active"
+    },
+    {
+      "id": "9",
+      "username": "user_theta",
+      "password": "user",
+      "email": "user_theta@example.com",
+      "role": "user",
+      "name": "Theta User",
+      "status": "inactive"
+    },
+    {
+      "id": "11",
+      "username": "owner",
+      "password": "ownerpass",
+      "email": "owner@example.com",
+      "role": "owner",
+      "name": "Owner User",
+      "status": "active"
+    }
+  ]
+}

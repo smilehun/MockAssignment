@@ -1,0 +1,10 @@
+.card {
+    @apply bg-white rounded-lg shadow-sm border border-gray-200 p-6;
+}
+.stat-card {
+    @apply p-7;
+}
+th,
+td {
+    @apply align-middle;
+}

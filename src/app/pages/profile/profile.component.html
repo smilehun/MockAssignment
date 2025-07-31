@@ -1,0 +1,72 @@
+<div class="p-6">
+    <!-- Loading State -->
+    <div *ngIf="loading" class="flex justify-center items-center min-h-[400px]">
+        <app-loading-spinner></app-loading-spinner>
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="error" class="text-red-500 p-4 rounded-lg bg-red-50 mb-4">
+        {{ error }}
+    </div>
+
+    <!-- Profile Content -->
+    <div *ngIf="userProfile && !loading" class="max-w-4xl mx-auto">
+        <div class="bg-white dark:bg-surface-800 rounded-xl shadow-lg overflow-hidden">
+            <!-- Header -->
+            <div class="bg-primary p-6 text-white">
+                <h1 class="text-2xl font-bold mb-2">Profile Information</h1>
+                <p class="opacity-80">Manage your profile and information</p>
+            </div>
+
+            <!-- Profile Information -->
+            <div class="p-6 space-y-6">
+                <!-- Basic Info Section -->
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="text-sm text-gray-600 dark:text-gray-300 font-medium">Full Name</label>
+                        <p class="text-lg text-gray-800 dark:text-gray-100">{{ userProfile.name }}</p>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm text-gray-600 dark:text-gray-300 font-medium">Username</label>
+                        <p class="text-lg text-gray-800 dark:text-gray-100">{{ userProfile.username }}</p>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm text-gray-600 dark:text-gray-300 font-medium">Email</label>
+                        <p class="text-lg text-gray-800 dark:text-gray-100">{{ userProfile.email }}</p>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-sm text-gray-600 dark:text-gray-300 font-medium">Role</label>
+                        <p class="text-lg text-gray-800 dark:text-gray-100 capitalize">{{ userProfile.role }}</p>
+                    </div>
+                </div>
+
+                <!-- Status Section -->
+                <div class="border-t border-gray-200 dark:border-gray-700 pt-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-3">
+                                <label class="text-sm text-gray-600 dark:text-gray-300 font-medium">Account Status</label>
+                                <span
+                                    [class]="
+                                        'inline-flex px-3 py-1 rounded-full text-sm font-medium ' +
+                                        (userProfile.status === 'active'
+                                            ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200'
+                                            : userProfile.status === 'inactive'
+                                              ? 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200'
+                                              : 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200')
+                                    "
+                                >
+                                    {{ userProfile.status | titlecase }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="space-y-2" *ngIf="userProfile.lastLogin">
+                            <label class="text-sm text-gray-600 dark:text-gray-300 font-medium">Last Login</label>
+                            <p class="text-lg text-gray-800 dark:text-gray-100">{{ userProfile.lastLogin | date: 'medium' }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,5 @@
+{
+    "POST /api/users/login": "/users?username=:username&password=:password",
+    "POST /api/users/register": "/users",
+    "/api/*": "/$1"
+} 

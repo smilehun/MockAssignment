@@ -1,0 +1,6 @@
+- **Frontend**: Angular 19, TypeScript, PrimeNG, Tailwind CSS
+- **State Management**: RxJS BehaviorSubject
+- **Authorization**: CASL
+- **Testing**: Jasmine, Karma
+- **API**: JSON Server (mock backend)
+- **Build Tools**: Angular CLI, Webpack

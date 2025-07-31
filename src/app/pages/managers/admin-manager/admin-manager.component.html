@@ -1,0 +1,109 @@
+<div>
+    <ng-container>
+        <p-toast />
+        <p-confirmdialog [style]="{ width: '450px' }" />
+
+        <p-toolbar styleClass="mb-6">
+            <ng-template #start>
+                <p-button label="New" icon="pi pi-plus" severity="secondary" class="mr-2" (onClick)="openNew()" [disabled]="!canManageUsers" />
+                <p-button severity="secondary" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedUsers()" [disabled]="!selectedUsers || !selectedUsers.length || !canManageUsers" />
+            </ng-template>
+
+            <ng-template #end>
+                <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="dt.exportCSV()" />
+            </ng-template>
+        </p-toolbar>
+
+        <p-table
+            #dt
+            [value]="admins()"
+            [rows]="10"
+            [columns]="cols"
+            [paginator]="true"
+            [globalFilterFields]="['name', 'email', 'role', 'status']"
+            [tableStyle]="{ 'min-width': '75rem' }"
+            [(selection)]="selectedUsers"
+            [rowHover]="true"
+            dataKey="id"
+            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} admins"
+            [showCurrentPageReport]="true"
+            [rowsPerPageOptions]="[10, 20, 30]"
+        >
+            <ng-template #caption>
+                <div class="flex items-center justify-between">
+                    <h5 class="m-0">Manage Admins</h5>
+                    <p-iconfield>
+                        <p-inputicon styleClass="pi pi-search" />
+                        <input pInputText type="text" (input)="onGlobalFilter(dt, $event)" placeholder="Search..." />
+                    </p-iconfield>
+                </div>
+            </ng-template>
+            <ng-template #header>
+                <tr>
+                    <th style="width: 3rem">
+                        <p-tableHeaderCheckbox />
+                    </th>
+                    <th pSortableColumn="name" style="min-width: 16rem">
+                        Name
+                        <p-sortIcon field="name" />
+                    </th>
+                    <th pSortableColumn="email" style="min-width: 16rem">
+                        Email
+                        <p-sortIcon field="email" />
+                    </th>
+                    <th pSortableColumn="role" style="min-width: 10rem">
+                        Role
+                        <p-sortIcon field="role" />
+                    </th>
+                    <th style="min-width: 12rem"></th>
+                </tr>
+            </ng-template>
+            <ng-template #body let-admin>
+                <tr>
+                    <td style="width: 3rem">
+                        <p-tableCheckbox [value]="admin" />
+                    </td>
+                    <td style="min-width: 16rem">{{ admin.name }}</td>
+                    <td style="min-width: 16rem">{{ admin.email }}</td>
+                    <td>{{ admin.role }}</td>
+                    <td>
+                        <p-button *ngIf="canManageUsers" icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editAdmin(admin)" />
+                        <p-button *ngIf="canManageUsers && admin.id !== authService.currentUserValue?.id" icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteAdmin(admin)" />
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+        <p-dialog [(visible)]="adminDialog" [style]="{ width: '450px' }" header="Admin Details" [modal]="true">
+            <ng-template #content>
+                <div class="flex flex-col gap-6">
+                    <div>
+                        <label for="name" class="block font-bold mb-3">Name</label>
+                        <input type="text" pInputText id="name" [(ngModel)]="admin.name" required autofocus fluid />
+                        <small class="text-red-500" *ngIf="submitted && !admin.name">Name is required.</small>
+                    </div>
+                    <div>
+                        <label for="email" class="block font-bold mb-3">Email</label>
+                        <input type="email" pInputText id="email" [(ngModel)]="admin.email" required fluid />
+                        <small class="text-red-500" *ngIf="submitted && !admin.email">Email is required.</small>
+                    </div>
+                    <div>
+                        <label for="role" class="block font-bold mb-3">Role</label>
+                        <p-dropdown [(ngModel)]="admin.role" inputId="role" [options]="['Admin', 'User', 'Guest']" placeholder="Select a Role" [style]="{ width: '100%' }" appendTo="body" fluid />
+                        <small class="text-red-500" *ngIf="submitted && !admin.role">Role is required.</small>
+                    </div>
+                </div>
+            </ng-template>
+
+            <ng-template #footer>
+                <p-button label="Cancel" icon="pi pi-times" text (click)="hideDialog()" />
+                <p-button label="Save" icon="pi pi-check" (click)="saveAdmin()" [disabled]="!canManageUsers" />
+            </ng-template>
+        </p-dialog>
+    </ng-container>
+
+    <ng-template #noAccess>
+        <h2>Access Denied</h2>
+        <p>You do not have permission to view the admin manager.</p>
+    </ng-template>
+</div>

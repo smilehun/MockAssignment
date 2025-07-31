@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trình chiếu dự án - Angular Mock Assignment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 450px;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .content-section.active {
+            display: block;
+        }
+        .nav-link.active {
+            background-color: #2563eb;
+            color: white;
+        }
+        .step-item.active {
+            border-color: #2563eb;
+            background-color: #dbeafe;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .arch-item.active {
+             background-color: #dbeafe;
+        }
+        .tech-item.active {
+            background-color: #2563eb;
+            color: white;
+        }
+        .tech-detail, .arch-content, .step-content {
+            display: none;
+        }
+        .tech-detail.active, .arch-content.active, .step-content.active {
+            display: block;
+            animation: fadeIn 0.4s;
+        }
+        .arch-content-inner ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+        }
+        .arch-content-inner li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <div class="flex h-screen">
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="w-64 bg-slate-800 text-slate-100 p-6 space-y-4 fixed top-0 left-0 h-full transition-transform -translate-x-full md:translate-x-0 z-20 shadow-lg">
+            <h1 class="text-2xl font-bold text-white">Angular Mock Assignment</h1>
+            <nav id="main-nav" class="space-y-2">
+                <a href="#tong-quan" class="nav-link flex items-center p-3 rounded-lg hover:bg-slate-700 transition-colors duration-200">
+                    <span class="mr-3">🎯</span> Tổng quan
+                </a>
+                <a href="#cong-nghe" class="nav-link flex items-center p-3 rounded-lg hover:bg-slate-700 transition-colors duration-200">
+                    <span class="mr-3">🛠️</span> Công nghệ
+                </a>
+                <a href="#kien-truc" class="nav-link flex items-center p-3 rounded-lg hover:bg-slate-700 transition-colors duration-200">
+                    <span class="mr-3">🏗️</span> Kiến trúc
+                </a>
+                <a href="#toi-uu" class="nav-link flex items-center p-3 rounded-lg hover:bg-slate-700 transition-colors duration-200">
+                    <span class="mr-3">⚡</span> Tối ưu hóa
+                </a>
+                <a href="#bao-mat" class="nav-link flex items-center p-3 rounded-lg hover:bg-slate-700 transition-colors duration-200">
+                    <span class="mr-3">🔒</span> Bảo mật
+                </a>
+                <a href="#demo" class="nav-link flex items-center p-3 rounded-lg hover:bg-slate-700 transition-colors duration-200">
+                    <span class="mr-3">🚀</span> Luồng Demo
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="menu-toggle" class="md:hidden fixed top-4 left-4 z-30 p-2 bg-slate-800 text-white rounded-md">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+        </button>
+
+        <!-- Main Content -->
+        <main class="flex-1 md:ml-64 p-6 md:p-10 overflow-y-auto">
+            
+            <!-- Section: Overview -->
+            <section id="tong-quan" class="content-section space-y-8">
+                <header>
+                    <h2 class="text-4xl font-bold text-slate-900 border-b-4 border-blue-600 pb-2">Mục tiêu & Chức năng</h2>
+                    <p class="mt-2 text-lg text-slate-600">Tổng quan về mục đích và các tính năng cốt lõi của dự án.</p>
+                </header>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 hover:shadow-lg hover:border-blue-500 transition-all duration-300">
+                        <h3 class="text-2xl font-semibold text-blue-700 mb-3">Mục tiêu chính</h3>
+                        <p>Cung cấp một dashboard quản trị <span class="font-semibold text-slate-900">mạnh mẽ, dễ mở rộng và thân thiện</span>, giải quyết các bài toán quản lý phức tạp và mang lại trải nghiệm người dùng tối ưu.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 hover:shadow-lg hover:border-blue-500 transition-all duration-300">
+                        <h3 class="text-2xl font-semibold text-blue-700 mb-3">Chức năng nổi bật</h3>
+                        <ul class="space-y-3">
+                            <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">👥</span> <span><strong class="font-medium">Quản lý người dùng:</strong> Hệ thống quản lý toàn diện.</span></li>
+                            <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">🛡️</span> <span><strong class="font-medium">Phân quyền (RBAC):</strong> Quản lý quyền truy cập chi tiết với CASL.</span></li>
+                            <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">📊</span> <span><strong class="font-medium">Dashboard phân tích:</strong> Biểu đồ tương tác, dữ liệu real-time.</span></li>
+                            <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">📱</span> <span><strong class="font-medium">Thiết kế đáp ứng:</strong> Tối ưu hóa cho mọi thiết bị.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: Technology -->
+            <section id="cong-nghe" class="content-section space-y-8">
+                 <header>
+                    <h2 class="text-4xl font-bold text-slate-900 border-b-4 border-blue-600 pb-2">Công nghệ sử dụng</h2>
+                    <p class="mt-2 text-lg text-slate-600">Phân tích chi tiết về các công nghệ chính và vai trò của chúng trong dự án.</p>
+                </header>
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200">
+                        <div class="chart-container">
+                            <canvas id="techChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200">
+                        <h3 class="text-xl font-semibold mb-4">Vai trò của từng công nghệ</h3>
+                        <div class="space-y-2 mb-4">
+                            <button class="tech-item w-full text-left p-3 rounded-lg bg-slate-100 hover:bg-blue-100 transition" data-target="tech-angular">Angular 19 & Standalone Components</button>
+                            <button class="tech-item w-full text-left p-3 rounded-lg bg-slate-100 hover:bg-blue-100 transition" data-target="tech-ui">PrimeNG & Tailwind CSS</button>
+                            <button class="tech-item w-full text-left p-3 rounded-lg bg-slate-100 hover:bg-blue-100 transition" data-target="tech-casl">CASL (Authorization)</button>
+                            <button class="tech-item w-full text-left p-3 rounded-lg bg-slate-100 hover:bg-blue-100 transition" data-target="tech-rxjs">RxJS (State Management)</button>
+                        </div>
+                        <div id="tech-details-content" class="p-4 border-t-2 min-h-[150px]">
+                            <div id="tech-angular" class="tech-detail">
+                                <h4 class="font-semibold text-lg text-blue-700">Angular 19</h4>
+                                <p class="mt-1">Nền tảng chính để xây dựng ứng dụng. Việc sử dụng Standalone Components giúp mã nguồn gọn gàng, giảm boilerplate, và tối ưu hóa hiệu suất thông qua tree-shaking hiệu quả hơn.</p>
+                            </div>
+                            <div id="tech-ui" class="tech-detail">
+                                <h4 class="font-semibold text-lg text-blue-700">PrimeNG & Tailwind CSS</h4>
+                                <p class="mt-1">Sự kết hợp hoàn hảo giữa một thư viện component UI mạnh mẽ (PrimeNG) và một framework CSS linh hoạt (Tailwind). PrimeNG cung cấp các component phức tạp, trong khi Tailwind cho phép tùy chỉnh giao diện nhanh chóng và nhất quán.</p>
+                            </div>
+                            <div id="tech-casl" class="tech-detail">
+                                <h4 class="font-semibold text-lg text-blue-700">CASL (Authorization)</h4>
+                                <p class="mt-1">Thư viện phân quyền mạnh mẽ, cho phép định nghĩa các quy tắc truy cập phức tạp dựa trên vai trò và quyền hạn của người dùng. CASL giúp kiểm soát chi tiết các hành động trên từng tài nguyên ở phía frontend.</p>
+                            </div>
+                            <div id="tech-rxjs" class="tech-detail">
+                                <h4 class="font-semibold text-lg text-blue-700">RxJS</h4>
+                                <p class="mt-1">Được sử dụng để quản lý trạng thái (state management) một cách hiệu quả thông qua `BehaviorSubject`. RxJS giúp xử lý các luồng dữ liệu bất đồng bộ, đảm bảo giao diện luôn được cập nhật khi có sự thay đổi dữ liệu.</p>
+                            </div>
+                             <div id="tech-default">
+                                 <p class="text-slate-500">Chọn một công nghệ ở trên để xem chi tiết.</p>
+                             </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: Architecture -->
+            <section id="kien-truc" class="content-section space-y-8">
+                <header>
+                    <h2 class="text-4xl font-bold text-slate-900 border-b-4 border-blue-600 pb-2">Kiến trúc hệ thống</h2>
+                    <p class="mt-2 text-lg text-slate-600">Khám phá cấu trúc phân lớp và module hóa của dự án theo dạng accordion. Nhấn vào từng mục để xem chi tiết.</p>
+                </header>
+                <div id="architecture-accordion" class="space-y-4">
+                    <!-- Accordion Item 1 -->
+                    <div class="arch-accordion-item bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden transition-all duration-300">
+                        <div class="arch-item p-4 cursor-pointer hover:bg-slate-100">
+                            <h4 class="font-semibold text-lg">Pages (Feature Modules)</h4>
+                            <p class="text-sm text-slate-500">Tổ chức tính năng theo nghiệp vụ</p>
+                        </div>
+                        <div class="arch-content">
+                            <div class="arch-content-inner p-4 border-t border-slate-200">
+                                <p class="mb-3">Tổ chức ứng dụng thành các "feature module" độc lập, mỗi module chịu trách nhiệm cho một tính năng nghiệp vụ cụ thể (VD: Quản lý sản phẩm, Quản lý người dùng). Mỗi module có routing, components, services riêng, giúp:</p>
+                                <ul>
+                                    <li><strong>Tăng khả năng bảo trì:</strong> Dễ dàng tìm và sửa lỗi trong một phạm vi nhỏ.</li>
+                                    <li><strong>Lazy Loading:</strong> Cho phép tải các module này theo yêu cầu, giảm kích thước gói ban đầu.</li>
+                                    <li><strong>Phân chia công việc:</strong> Nhiều lập trình viên có thể làm việc song song trên các module khác nhau.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Accordion Item 2 -->
+                    <div class="arch-accordion-item bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden transition-all duration-300">
+                        <div class="arch-item p-4 cursor-pointer hover:bg-slate-100">
+                            <h4 class="font-semibold text-lg">Services (Lớp Logic Nghiệp vụ)</h4>
+                            <p class="text-sm text-slate-500">Tách biệt logic và quản lý dữ liệu</p>
+                        </div>
+                        <div class="arch-content">
+                             <div class="arch-content-inner p-4 border-t border-slate-200">
+                                <p class="mb-3">Là nơi chứa logic nghiệp vụ chính của ứng dụng, tách biệt hoàn toàn khỏi lớp trình bày (component). Vai trò chính:</p>
+                                <ul>
+                                    <li><strong>Giao tiếp API:</strong> Chịu trách nhiệm gọi API (sử dụng HttpClient) để lấy, gửi và cập nhật dữ liệu với backend (mock bằng JSON Server).</li>
+                                    <li><strong>Quản lý State:</strong> Sử dụng RxJS (BehaviorSubject) để tạo ra các "store" cục bộ, quản lý trạng thái của một tính năng và cho phép các component khác nhau theo dõi và phản ứng với sự thay đổi dữ liệu.</li>
+                                    <li><strong>Tái sử dụng logic:</strong> Cung cấp các phương thức có thể được inject và sử dụng bởi nhiều component.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Accordion Item 3 -->
+                    <div class="arch-accordion-item bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden transition-all duration-300">
+                        <div class="arch-item p-4 cursor-pointer hover:bg-slate-100">
+                             <h4 class="font-semibold text-lg">Guards</h4>
+                            <p class="text-sm text-slate-500">Kiểm soát quyền truy cập route</p>
+                        </div>
+                        <div class="arch-content">
+                            <div class="arch-content-inner p-4 border-t border-slate-200">
+                                <p class="mb-3">Triển khai các lớp bảo vệ route của Angular để kiểm soát quyền truy cập một cách chặt chẽ.</p>
+                                <ul>
+                                    <li><strong><code>CanActivate</code>:</strong> Dùng trong `auth.guard.ts` để kiểm tra token và quyền của người dùng trước khi kích hoạt một route. Nếu không hợp lệ, người dùng sẽ bị điều hướng đến trang đăng nhập.</li>
+                                    <li><strong><code>CanLoad</code>:</strong> Ngăn chặn việc tải mã nguồn của một module lazy-loaded nếu người dùng không có quyền, giúp tối ưu hiệu năng và bảo mật bằng cách không gửi code không cần thiết cho client.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Accordion Item 4 -->
+                     <div class="arch-accordion-item bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden transition-all duration-300">
+                        <div class="arch-item p-4 cursor-pointer hover:bg-slate-100">
+                            <h4 class="font-semibold text-lg">Interceptors</h4>
+                            <p class="text-sm text-slate-500">Xử lý request/response toàn cục</p>
+                        </div>
+                        <div class="arch-content">
+                            <div class="arch-content-inner p-4 border-t border-slate-200">
+                                 <p class="mb-3">Can thiệp vào luồng request/response HTTP một cách toàn cục. Các interceptor được thực thi theo chuỗi, cho phép xử lý logic một cách tập trung.</p>
+                                <ul>
+                                    <li><strong><code>AuthInterceptor</code>:</strong> Tự động thêm header `Authorization: Bearer <token>` vào mọi request gửi đến API được bảo vệ.</li>
+                                    <li><strong><code>ErrorInterceptor</code>:</strong> Bắt các lỗi HTTP (như 401, 403, 500) để xử lý tập trung, ví dụ: tự động đăng xuất người dùng khi token hết hạn (lỗi 401) hoặc hiển thị thông báo lỗi chung.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Accordion Item 5 -->
+                     <div class="arch-accordion-item bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden transition-all duration-300">
+                        <div class="arch-item p-4 cursor-pointer hover:bg-slate-100">
+                            <h4 class="font-semibold text-lg">Shared & Layout</h4>
+                            <p class="text-sm text-slate-500">Tái sử dụng code và giao diện chung</p>
+                        </div>
+                        <div class="arch-content">
+                             <div class="arch-content-inner p-4 border-t border-slate-200">
+                                <p class="mb-3">Tập hợp các thành phần có thể tái sử dụng trên toàn ứng dụng để tuân thủ nguyên tắc DRY (Don't Repeat Yourself).</p>
+                                 <ul>
+                                    <li><strong>Shared:</strong> Chứa các component chung (`Button`, `Modal`), pipes (`vndCurrency`), và directives (`hasPermission`). Với kiến trúc Standalone, chúng được import trực tiếp vào nơi cần sử dụng.</li>
+                                    <li><strong>Layout:</strong> Chứa các component cấu thành nên khung sườn của ứng dụng như `Sidebar`, `Header`, `Footer`. Các component này định hình giao diện chung và thường chứa các outlet (`<router-outlet>`) để hiển thị nội dung của các trang.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: Optimization -->
+            <section id="toi-uu" class="content-section space-y-8">
+                 <header>
+                    <h2 class="text-4xl font-bold text-slate-900 border-b-4 border-blue-600 pb-2">Tối ưu hóa & Hiệu năng</h2>
+                     <p class="mt-2 text-lg text-slate-600">Các kỹ thuật chính được áp dụng để cải thiện hiệu suất và trải nghiệm người dùng.</p>
+                </header>
+                <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
+                    <ul class="space-y-4 list-disc list-inside">
+                        <li><strong>Lazy Loading:</strong> Chỉ tải các module tính năng khi cần thiết, giúp giảm đáng kể thời gian tải ban đầu của ứng dụng.</li>
+                        <li><strong>Global Interceptors:</strong> Quản lý trạng thái tải và xử lý lỗi một cách tập trung, mang lại trải nghiệm người dùng mượt mà và nhất quán.</li>
+                        <li><strong>Standalone Components:</strong> Sử dụng kiến trúc component độc lập của Angular 19 giúp giảm boilerplate, cải thiện khả năng tree-shaking và tối ưu hóa kích thước bundle.</li>
+                        <li><strong>Local Cache:</strong> Dùng `localStorage` để lưu trữ token và thông tin người dùng, giúp duy trì trạng thái đăng nhập và giảm số lượng request không cần thiết đến server.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section: Security -->
+            <section id="bao-mat" class="content-section space-y-8">
+                <header>
+                    <h2 class="text-4xl font-bold text-slate-900 border-b-4 border-blue-600 pb-2">Bảo mật toàn diện</h2>
+                    <p class="mt-2 text-lg text-slate-600">Các lớp bảo vệ được tích hợp để đảm bảo an toàn dữ liệu và quyền truy cập.</p>
+                </header>
+                 <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 hover:shadow-lg hover:border-blue-500 transition-all duration-300">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">Route Guard</h3>
+                        <p class="text-sm">Kiểm tra sự tồn tại của token xác thực trong `localStorage` hoặc state service trước khi kích hoạt một route. Nếu token không hợp lệ hoặc đã hết hạn, Guard sẽ sử dụng `Router` service của Angular để hủy điều hướng và đưa người dùng về trang đăng nhập, đảm bảo component của route được bảo vệ không bao giờ được khởi tạo.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 hover:shadow-lg hover:border-blue-500 transition-all duration-300">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">Auth Interceptor</h3>
+                        <p class="text-sm">Tự động đính kèm token xác thực (`Authorization: Bearer <token>`) vào mỗi request API gửi đi. Giải pháp này giúp tập trung hóa logic, tránh lặp code. Ngoài ra, Interceptor còn có thể xử lý lỗi 401 (Unauthorized) bằng cách tự động đăng xuất người dùng hoặc thực thi luồng làm mới token.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 hover:shadow-lg hover:border-blue-500 transition-all duration-300">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">RBAC với CASL</h3>
+                        <p class="text-sm">Phân quyền chi tiết dựa trên vai trò (Role-Based Access Control) bằng thư viện CASL. CASL cho phép định nghĩa quyền hạn một cách linh hoạt (VD: "admin" `can` 'update' `Post`). Trong giao diện, các chỉ thị (directives) tùy chỉnh sẽ dùng các quyền này để ẩn/hiện các nút hành động (như Sửa, Xóa), đảm bảo người dùng chỉ thấy các chức năng mà họ được phép sử dụng.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: Demo Flow -->
+            <section id="demo" class="content-section space-y-8">
+                <header>
+                    <h2 class="text-4xl font-bold text-slate-900 border-b-4 border-blue-600 pb-2">Luồng Demo Quản lý người dùng</h2>
+                    <p class="mt-2 text-lg text-slate-600">Trình tự các bước trong một luồng tương tác điển hình. Nhấn vào từng bước để xem mô tả và hình ảnh minh họa.</p>
+                </header>
+                <div class="space-y-6">
+                    <div class="flex flex-col md:flex-row items-stretch justify-center gap-2 text-center" id="demo-steps">
+                        <div class="step-item flex-1 p-4 border-2 border-slate-300 rounded-lg cursor-pointer transition-all duration-200" data-target="step-1">1. Đăng nhập</div>
+                        <div class="hidden md:flex items-center text-slate-400 text-2xl">&rarr;</div>
+                        <div class="step-item flex-1 p-4 border-2 border-slate-300 rounded-lg cursor-pointer transition-all duration-200" data-target="step-2">2. Dashboard</div>
+                        <div class="hidden md:flex items-center text-slate-400 text-2xl">&rarr;</div>
+                        <div class="step-item flex-1 p-4 border-2 border-slate-300 rounded-lg cursor-pointer transition-all duration-200" data-target="step-3">3. Quản lý User</div>
+                        <div class="hidden md:flex items-center text-slate-400 text-2xl">&rarr;</div>
+                        <div class="step-item flex-1 p-4 border-2 border-slate-300 rounded-lg cursor-pointer transition-all duration-200" data-target="step-4">4. Đăng xuất</div>
+                    </div>
+                    <div id="demo-details" class="bg-white p-6 rounded-xl shadow-md border border-slate-200 min-h-[320px] flex items-center justify-center">
+                        <div id="step-1" class="step-content">
+                            <div class="flex flex-col md:flex-row items-center gap-6 text-left">
+                                <img src="https://placehold.co/400x250/e0f2fe/0c4a6e?text=Trang+Dang+Nhap" alt="Minh họa Đăng nhập" class="w-full md:w-1/2 rounded-lg shadow-md object-cover">
+                                <p class="md:w-1/2"><strong>Đăng nhập:</strong> Người dùng nhập thông tin. `AuthGuard` và `AuthService` xác thực. `AuthInterceptor` sẽ gắn token cho các request sau này.</p>
+                            </div>
+                        </div>
+                        <div id="step-2" class="step-content">
+                             <div class="flex flex-col md:flex-row items-center gap-6 text-left">
+                                <img src="https://placehold.co/400x250/dcfce7/14532d?text=Dashboard+Phan+Tich" alt="Minh họa Dashboard" class="w-full md:w-1/2 rounded-lg shadow-md object-cover">
+                                <p class="md:w-1/2"><strong>Dashboard:</strong> Sau khi đăng nhập, người dùng thấy trang dashboard với các biểu đồ và thống kê, minh họa khả năng phân tích real-time.</p>
+                            </div>
+                        </div>
+                        <div id="step-3" class="step-content">
+                            <div class="flex flex-col md:flex-row items-center gap-6 text-left">
+                                <img src="https://placehold.co/400x250/fef3c7/b45309?text=Quan+Ly+Nguoi+Dung" alt="Minh họa Quản lý User" class="w-full md:w-1/2 rounded-lg shadow-md object-cover">
+                                <p class="md:w-1/2"><strong>Quản lý User:</strong> Người dùng có quyền (admin/owner) truy cập trang quản lý. `AbilityService` (CASL) kiểm tra quyền để thực hiện thêm/sửa/xóa.</p>
+                            </div>
+                        </div>
+                        <div id="step-4" class="step-content">
+                            <div class="flex flex-col md:flex-row items-center gap-6 text-left">
+                                <img src="https://placehold.co/400x250/fee2e2/991b1b?text=Xac+Nhan+Dang+Xuat" alt="Minh họa Đăng xuất" class="w-full md:w-1/2 rounded-lg shadow-md object-cover">
+                                <p class="md:w-1/2"><strong>Đăng xuất:</strong> Người dùng đăng xuất. `AuthService` xóa token khỏi `localStorage` và `AbilityService` reset quyền.</p>
+                            </div>
+                        </div>
+                        <div id="step-default">
+                             <p class="text-slate-500">Chọn một bước ở trên để xem mô tả chi tiết.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- DOM Element Selection ---
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentSections = document.querySelectorAll('.content-section');
+            const menuToggle = document.getElementById('menu-toggle');
+            const sidebar = document.getElementById('sidebar');
+
+            // --- Core Navigation Functions ---
+            function setActiveLink(hash) {
+                navLinks.forEach(link => {
+                    link.classList.toggle('active', link.getAttribute('href') === hash);
+                });
+            }
+
+            function showContent(hash) {
+                contentSections.forEach(section => {
+                    section.classList.toggle('active', '#' + section.id === hash);
+                });
+            }
+
+            function handleNavigation() {
+                const hash = window.location.hash || '#tong-quan'; // Default to overview
+                setActiveLink(hash);
+                showContent(hash);
+            }
+            
+            // --- Event Listeners ---
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetHash = this.getAttribute('href');
+                    window.location.hash = targetHash; // Update URL hash to trigger hashchange
+                    if (window.innerWidth < 768) { // Auto-close sidebar on mobile
+                        sidebar.classList.add('-translate-x-full');
+                    }
+                });
+            });
+
+            window.addEventListener('hashchange', handleNavigation);
+            
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('-translate-x-full');
+            });
+
+            // --- Chart.js Initialization ---
+            const techCtx = document.getElementById('techChart')?.getContext('2d');
+            if (techCtx) {
+                new Chart(techCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Angular Core', 'UI Layer', 'Authorization', 'State & Testing'],
+                        datasets: [{
+                            label: 'Phân bổ công nghệ',
+                            data: [40, 30, 15, 15],
+                            backgroundColor: [
+                                'rgba(59, 130, 246, 0.8)',
+                                'rgba(34, 197, 94, 0.8)',
+                                'rgba(239, 68, 68, 0.8)',
+                                'rgba(139, 92, 246, 0.8)'
+                            ],
+                            borderColor: '#f1f5f9',
+                            borderWidth: 4,
+                            hoverOffset: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return `${context.label}: ${context.raw}%`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // --- Generic Interactive List Logic ---
+            function setupInteractiveList(containerId, itemClass, contentClass, defaultId) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+
+                const items = container.querySelectorAll(`.${itemClass}`);
+                const contents = container.querySelectorAll(`.${contentClass}`);
+                const defaultContent = container.querySelector(`#${defaultId}`);
+
+                items.forEach(item => {
+                    item.addEventListener('click', () => {
+                        const targetId = item.dataset.target;
+                        
+                        // If clicking the active item, do nothing (or you can toggle it off)
+                        if (item.classList.contains('active')) {
+                            return;
+                        }
+
+                        items.forEach(i => i.classList.remove('active'));
+                        item.classList.add('active');
+
+                        if(defaultContent) defaultContent.style.display = 'none';
+                        
+                        contents.forEach(content => {
+                           content.classList.toggle('active', content.id === targetId);
+                        });
+                    });
+                });
+            }
+
+            // --- Architecture Accordion Logic ---
+            function setupArchitectureAccordion() {
+                const accordionItems = document.querySelectorAll('.arch-accordion-item');
+                accordionItems.forEach(item => {
+                    const trigger = item.querySelector('.arch-item');
+                    const content = item.querySelector('.arch-content');
+
+                    trigger.addEventListener('click', () => {
+                        const isCurrentlyActive = trigger.classList.contains('active');
+
+                        // Close all other items
+                        accordionItems.forEach(otherItem => {
+                            otherItem.querySelector('.arch-item').classList.remove('active');
+                            otherItem.querySelector('.arch-content').classList.remove('active');
+                        });
+
+                        // If it wasn't active, open it
+                        if (!isCurrentlyActive) {
+                            trigger.classList.add('active');
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            }
+
+            // --- Initialize all interactive components ---
+            setupArchitectureAccordion();
+            setupInteractiveList('cong-nghe', 'tech-item', 'tech-detail', 'tech-default');
+            // FIX: Target the parent section 'demo' to correctly find both items and content
+            setupInteractiveList('demo', 'step-item', 'step-content', 'step-default');
+
+            // --- Initial Load ---
+            handleNavigation();
+            // Default select first step in demo
+            const firstDemoStep = document.querySelector('#demo-steps .step-item');
+            if(firstDemoStep) {
+                firstDemoStep.click();
+            }
+        });
+    </script>
+</body>
+</html>
