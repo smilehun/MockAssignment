@@ -91,8 +91,14 @@
                 <a href="#toi-uu" class="nav-link flex items-center p-3 rounded-lg hover:bg-slate-700 transition-colors duration-200">
                     <span class="mr-3">⚡</span> Tối ưu hóa
                 </a>
+                <a href="#kha-nang-mo-rong" class="nav-link flex items-center p-3 rounded-lg hover:bg-slate-700 transition-colors duration-200">
+                    <span class="mr-3">📈</span> Khả năng mở rộng
+                </a>
                 <a href="#bao-mat" class="nav-link flex items-center p-3 rounded-lg hover:bg-slate-700 transition-colors duration-200">
                     <span class="mr-3">🔒</span> Bảo mật
+                </a>
+                <a href="#su-dung-ai" class="nav-link flex items-center p-3 rounded-lg hover:bg-slate-700 transition-colors duration-200">
+                    <span class="mr-3">🧠</span> Sử dụng AI
                 </a>
                 <a href="#demo" class="nav-link flex items-center p-3 rounded-lg hover:bg-slate-700 transition-colors duration-200">
                     <span class="mr-3">🚀</span> Luồng Demo
@@ -118,16 +124,17 @@
                 </header>
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 hover:shadow-lg hover:border-blue-500 transition-all duration-300">
-                        <h3 class="text-2xl font-semibold text-blue-700 mb-3">Mục tiêu chính</h3>
-                        <p>Cung cấp một dashboard quản trị <span class="font-semibold text-slate-900">mạnh mẽ, dễ mở rộng và thân thiện</span>, giải quyết các bài toán quản lý phức tạp và mang lại trải nghiệm người dùng tối ưu.</p>
+                        <h3 class="text-2xl font-semibold text-blue-700 mb-3">Mục tiêu dự án</h3>
+                        <p>Dự án này là một ứng dụng quản lý người dùng được xây dựng với Angular, cung cấp các chức năng xác thực (đăng nhập, đăng ký), quản lý người dùng và quản lý admin. Mục tiêu chính là cung cấp một nền tảng an toàn và hiệu quả để quản lý các vai trò và trạng thái người dùng khác nhau trong hệ thống.</p>
                     </div>
                     <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 hover:shadow-lg hover:border-blue-500 transition-all duration-300">
-                        <h3 class="text-2xl font-semibold text-blue-700 mb-3">Chức năng nổi bật</h3>
+                        <h3 class="text-2xl font-semibold text-blue-700 mb-3">Những chức năng chính</h3>
                         <ul class="space-y-3">
-                            <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">👥</span> <span><strong class="font-medium">Quản lý người dùng:</strong> Hệ thống quản lý toàn diện.</span></li>
-                            <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">🛡️</span> <span><strong class="font-medium">Phân quyền (RBAC):</strong> Quản lý quyền truy cập chi tiết với CASL.</span></li>
-                            <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">📊</span> <span><strong class="font-medium">Dashboard phân tích:</strong> Biểu đồ tương tác, dữ liệu real-time.</span></li>
-                            <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">📱</span> <span><strong class="font-medium">Thiết kế đáp ứng:</strong> Tối ưu hóa cho mọi thiết bị.</span></li>
+                            <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">✅</span> <span><strong class="font-medium">Xác thực người dùng:</strong> Đăng ký tài khoản mới, đăng nhập và đăng xuất.</span></li>
+                            <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">👥</span> <span><strong class="font-medium">Quản lý người dùng:</strong> Xem, thêm, sửa, xóa người dùng (dành cho Admin và Owner).</span></li>
+                            <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">👑</span> <span><strong class="font-medium">Quản lý Admin:</strong> Xem, thêm, sửa, xóa tài khoản admin (chỉ dành cho Owner).</span></li>
+                            <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">👤</span> <span><strong class="font-medium">Quản lý hồ sơ cá nhân:</strong> Người dùng có thể xem và cập nhật thông tin cá nhân của mình.</span></li>
+                            <li class="flex items-start"><span class="text-blue-600 mr-3 mt-1">🛡️</span> <span><strong class="font-medium">Phân quyền:</strong> Hệ thống phân quyền dựa trên vai trò (Owner, Admin, User) để kiểm soát quyền truy cập vào các chức năng và dữ liệu.</span></li>
                         </ul>
                     </div>
                 </div>
@@ -148,27 +155,42 @@
                     <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200">
                         <h3 class="text-xl font-semibold mb-4">Vai trò của từng công nghệ</h3>
                         <div class="space-y-2 mb-4">
-                            <button class="tech-item w-full text-left p-3 rounded-lg bg-slate-100 hover:bg-blue-100 transition" data-target="tech-angular">Angular 19 & Standalone Components</button>
-                            <button class="tech-item w-full text-left p-3 rounded-lg bg-slate-100 hover:bg-blue-100 transition" data-target="tech-ui">PrimeNG & Tailwind CSS</button>
-                            <button class="tech-item w-full text-left p-3 rounded-lg bg-slate-100 hover:bg-blue-100 transition" data-target="tech-casl">CASL (Authorization)</button>
-                            <button class="tech-item w-full text-left p-3 rounded-lg bg-slate-100 hover:bg-blue-100 transition" data-target="tech-rxjs">RxJS (State Management)</button>
+                            <button class="tech-item w-full text-left p-3 rounded-lg bg-slate-100 hover:bg-blue-100 transition" data-target="tech-angular">Angular</button>
+                            <button class="tech-item w-full text-left p-3 rounded-lg bg-slate-100 hover:bg-blue-100 transition" data-target="tech-typescript">TypeScript</button>
+                            <button class="tech-item w-full text-left p-3 rounded-lg bg-slate-100 hover:bg-blue-100 transition" data-target="tech-primeng">PrimeNG</button>
+                            <button class="tech-item w-full text-left p-3 rounded-lg bg-slate-100 hover:bg-blue-100 transition" data-target="tech-tailwind">Tailwind CSS</button>
+                            <button class="tech-item w-full text-left p-3 rounded-lg bg-slate-100 hover:bg-blue-100 transition" data-target="tech-casl">@casl/ability</button>
+                            <button class="tech-item w-full text-left p-3 rounded-lg bg-slate-100 hover:bg-blue-100 transition" data-target="tech-rxjs">RxJS</button>
+                            <button class="tech-item w-full text-left p-3 rounded-lg bg-slate-100 hover:bg-blue-100 transition" data-target="tech-json-server">json-server</button>
                         </div>
                         <div id="tech-details-content" class="p-4 border-t-2 min-h-[150px]">
                             <div id="tech-angular" class="tech-detail">
-                                <h4 class="font-semibold text-lg text-blue-700">Angular 19</h4>
-                                <p class="mt-1">Nền tảng chính để xây dựng ứng dụng. Việc sử dụng Standalone Components giúp mã nguồn gọn gàng, giảm boilerplate, và tối ưu hóa hiệu suất thông qua tree-shaking hiệu quả hơn.</p>
+                                <h4 class="font-semibold text-lg text-blue-700">Angular (^19.0.0)</h4>
+                                <p class="mt-1">Nền tảng chính để xây dựng ứng dụng. Được sử dụng cho cấu trúc, routing, quản lý trạng thái và các thành phần UI.</p>
                             </div>
-                            <div id="tech-ui" class="tech-detail">
-                                <h4 class="font-semibold text-lg text-blue-700">PrimeNG & Tailwind CSS</h4>
-                                <p class="mt-1">Sự kết hợp hoàn hảo giữa một thư viện component UI mạnh mẽ (PrimeNG) và một framework CSS linh hoạt (Tailwind). PrimeNG cung cấp các component phức tạp, trong khi Tailwind cho phép tùy chỉnh giao diện nhanh chóng và nhất quán.</p>
+                            <div id="tech-typescript" class="tech-detail">
+                                <h4 class="font-semibold text-lg text-blue-700">TypeScript</h4>
+                                <p class="mt-1">Ngôn ngữ lập trình chính được sử dụng, cung cấp kiểu dữ liệu tĩnh giúp tăng cường khả năng bảo trì và phát hiện lỗi sớm.</p>
+                            </div>
+                            <div id="tech-primeng" class="tech-detail">
+                                <h4 class="font-semibold text-lg text-blue-700">PrimeNG (^19.0.8)</h4>
+                                <p class="mt-1">Thư viện UI cung cấp các thành phần giao diện người dùng phong phú như Button, InputText, Password, Table, Dialog, Toast, v.v.</p>
+                            </div>
+                            <div id="tech-tailwind" class="tech-detail">
+                                <h4 class="font-semibold text-lg text-blue-700">Tailwind CSS (^3.4.17)</h4>
+                                <p class="mt-1">Framework CSS tiện ích giúp tạo kiểu nhanh chóng và responsive, kết hợp với `tailwindcss-primeui` để tích hợp tốt với PrimeNG.</p>
                             </div>
                             <div id="tech-casl" class="tech-detail">
-                                <h4 class="font-semibold text-lg text-blue-700">CASL (Authorization)</h4>
-                                <p class="mt-1">Thư viện phân quyền mạnh mẽ, cho phép định nghĩa các quy tắc truy cập phức tạp dựa trên vai trò và quyền hạn của người dùng. CASL giúp kiểm soát chi tiết các hành động trên từng tài nguyên ở phía frontend.</p>
+                                <h4 class="font-semibold text-lg text-blue-700">@casl/ability (^6.7.3) & @casl/angular (^9.0.3)</h4>
+                                <p class="mt-1">Thư viện để định nghĩa và kiểm soát quyền truy cập dựa trên vai trò (RBAC), đảm bảo bảo mật và phân quyền chi tiết.</p>
                             </div>
                             <div id="tech-rxjs" class="tech-detail">
-                                <h4 class="font-semibold text-lg text-blue-700">RxJS</h4>
-                                <p class="mt-1">Được sử dụng để quản lý trạng thái (state management) một cách hiệu quả thông qua `BehaviorSubject`. RxJS giúp xử lý các luồng dữ liệu bất đồng bộ, đảm bảo giao diện luôn được cập nhật khi có sự thay đổi dữ liệu.</p>
+                                <h4 class="font-semibold text-lg text-blue-700">RxJS (~7.8.0)</h4>
+                                <p class="mt-1">Được sử dụng với `@angular/common/http` để xử lý các yêu cầu HTTP không đồng bộ và quản lý luồng dữ liệu.</p>
+                            </div>
+                            <div id="tech-json-server" class="tech-detail">
+                                <h4 class="font-semibold text-lg text-blue-700">json-server (^0.17.4)</h4>
+                                <p class="mt-1">Được sử dụng để tạo API giả lập cho mục đích phát triển, giúp phát triển frontend độc lập với backend.</p>
                             </div>
                              <div id="tech-default">
                                  <p class="text-slate-500">Chọn một công nghệ ở trên để xem chi tiết.</p>
@@ -188,16 +210,19 @@
                     <!-- Accordion Item 1 -->
                     <div class="arch-accordion-item bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden transition-all duration-300">
                         <div class="arch-item p-4 cursor-pointer hover:bg-slate-100">
-                            <h4 class="font-semibold text-lg">Pages (Feature Modules)</h4>
-                            <p class="text-sm text-slate-500">Tổ chức tính năng theo nghiệp vụ</p>
+                            <h4 class="font-semibold text-lg">Mô hình thư mục</h4>
+                            <p class="text-sm text-slate-500">Dự án tuân theo mô hình kiến trúc module hóa</p>
                         </div>
                         <div class="arch-content">
                             <div class="arch-content-inner p-4 border-t border-slate-200">
-                                <p class="mb-3">Tổ chức ứng dụng thành các "feature module" độc lập, mỗi module chịu trách nhiệm cho một tính năng nghiệp vụ cụ thể (VD: Quản lý sản phẩm, Quản lý người dùng). Mỗi module có routing, components, services riêng, giúp:</p>
+                                <p class="mb-3">Dự án tuân theo mô hình kiến trúc module hóa, với các thư mục chính:</p>
                                 <ul>
-                                    <li><strong>Tăng khả năng bảo trì:</strong> Dễ dàng tìm và sửa lỗi trong một phạm vi nhỏ.</li>
-                                    <li><strong>Lazy Loading:</strong> Cho phép tải các module này theo yêu cầu, giảm kích thước gói ban đầu.</li>
-                                    <li><strong>Phân chia công việc:</strong> Nhiều lập trình viên có thể làm việc song song trên các module khác nhau.</li>
+                                    <li><strong><code>src/app/guards/</code>:</strong> Chứa các Angular Guards để bảo vệ các route.</li>
+                                    <li><strong><code>src/app/interceptors/</code>:</strong> Chứa các HTTP Interceptors để xử lý các yêu cầu và phản hồi HTTP (ví dụ: thêm token xác thực, xử lý lỗi, hiển thị loading spinner).</li>
+                                    <li><strong><code>src/app/layout/</code>:</strong> Chứa các thành phần layout chung của ứng dụng (ví dụ: sidebar, topbar, footer).</li>
+                                    <li><strong><code>src/app/pages/</code>:</strong> Chứa các module/component chính của ứng dụng, được chia theo tính năng (auth, dashboard, managers, profile).</li>
+                                    <li><strong><code>src/app/services/</code>:</strong> Chứa các service cung cấp logic nghiệp vụ và tương tác với API (ví dụ: <code>AuthService</code>, <code>UserService</code>, <code>AbilityService</code>, <code>LoadingService</code>).</li>
+                                    <li><strong><code>src/app/shared/</code>:</strong> Chứa các thành phần, model, hằng số và service dùng chung có thể tái sử dụng trên toàn ứng dụng (ví dụ: <code>shared/components</code>, <code>shared/models</code>, <code>shared/constants</code>, <code>shared/services</code>).</li>
                                 </ul>
                             </div>
                         </div>
@@ -205,16 +230,21 @@
                     <!-- Accordion Item 2 -->
                     <div class="arch-accordion-item bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden transition-all duration-300">
                         <div class="arch-item p-4 cursor-pointer hover:bg-slate-100">
-                            <h4 class="font-semibold text-lg">Services (Lớp Logic Nghiệp vụ)</h4>
-                            <p class="text-sm text-slate-500">Tách biệt logic và quản lý dữ liệu</p>
+                            <h4 class="font-semibold text-lg">Lazy Load + Route Module</h4>
+                            <p class="text-sm text-slate-500">Tối ưu hóa hiệu suất tải ban đầu</p>
                         </div>
                         <div class="arch-content">
                              <div class="arch-content-inner p-4 border-t border-slate-200">
-                                <p class="mb-3">Là nơi chứa logic nghiệp vụ chính của ứng dụng, tách biệt hoàn toàn khỏi lớp trình bày (component). Vai trò chính:</p>
+                                <p class="mb-3">Ứng dụng sử dụng lazy loading cho các module tính năng để tối ưu hóa hiệu suất tải ban đầu.</p>
                                 <ul>
-                                    <li><strong>Giao tiếp API:</strong> Chịu trách nhiệm gọi API (sử dụng HttpClient) để lấy, gửi và cập nhật dữ liệu với backend (mock bằng JSON Server).</li>
-                                    <li><strong>Quản lý State:</strong> Sử dụng RxJS (BehaviorSubject) để tạo ra các "store" cục bộ, quản lý trạng thái của một tính năng và cho phép các component khác nhau theo dõi và phản ứng với sự thay đổi dữ liệu.</li>
-                                    <li><strong>Tái sử dụng logic:</strong> Cung cấp các phương thức có thể được inject và sử dụng bởi nhiều component.</li>
+                                    <li><strong><code>src/app.routes.ts</code>:</strong> Định nghĩa các route cấp cao nhất, bao gồm lazy loading cho module <code>auth</code> và <code>pages</code>.
+                                        <ul>
+                                            <li><code>path: 'auth', loadChildren: () => import('./app/pages/auth/auth.routes').then((m) => m.default)</code></li>
+                                            <li><code>path: 'pages', loadChildren: () => import('./app/pages/pages.routes').then((m) => m.default)</code></li>
+                                        </ul>
+                                    </li>
+                                    <li><strong><code>src/app/pages/pages.routes.ts</code>:</strong> Định nghĩa các route con cho các trang chính của ứng dụng (profile, users-manager, admin-manager), cũng sử dụng lazy loading cho từng component.</li>
+                                    <li><strong><code>src/app/pages/auth/auth.routes.ts</code>:</strong> Định nghĩa các route cho các trang xác thực (login, register).</li>
                                 </ul>
                             </div>
                         </div>
@@ -222,47 +252,16 @@
                     <!-- Accordion Item 3 -->
                     <div class="arch-accordion-item bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden transition-all duration-300">
                         <div class="arch-item p-4 cursor-pointer hover:bg-slate-100">
-                             <h4 class="font-semibold text-lg">Guards</h4>
-                            <p class="text-sm text-slate-500">Kiểm soát quyền truy cập route</p>
+                             <h4 class="font-semibold text-lg">Cách chia service/component/pipe/directive</h4>
+                            <p class="text-sm text-slate-500">Phân chia rõ ràng các thành phần</p>
                         </div>
                         <div class="arch-content">
                             <div class="arch-content-inner p-4 border-t border-slate-200">
-                                <p class="mb-3">Triển khai các lớp bảo vệ route của Angular để kiểm soát quyền truy cập một cách chặt chẽ.</p>
+                                <p class="mb-3">Các thành phần được phân chia rõ ràng để dễ quản lý và tái sử dụng:</p>
                                 <ul>
-                                    <li><strong><code>CanActivate</code>:</strong> Dùng trong `auth.guard.ts` để kiểm tra token và quyền của người dùng trước khi kích hoạt một route. Nếu không hợp lệ, người dùng sẽ bị điều hướng đến trang đăng nhập.</li>
-                                    <li><strong><code>CanLoad</code>:</strong> Ngăn chặn việc tải mã nguồn của một module lazy-loaded nếu người dùng không có quyền, giúp tối ưu hiệu năng và bảo mật bằng cách không gửi code không cần thiết cho client.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Accordion Item 4 -->
-                     <div class="arch-accordion-item bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden transition-all duration-300">
-                        <div class="arch-item p-4 cursor-pointer hover:bg-slate-100">
-                            <h4 class="font-semibold text-lg">Interceptors</h4>
-                            <p class="text-sm text-slate-500">Xử lý request/response toàn cục</p>
-                        </div>
-                        <div class="arch-content">
-                            <div class="arch-content-inner p-4 border-t border-slate-200">
-                                 <p class="mb-3">Can thiệp vào luồng request/response HTTP một cách toàn cục. Các interceptor được thực thi theo chuỗi, cho phép xử lý logic một cách tập trung.</p>
-                                <ul>
-                                    <li><strong><code>AuthInterceptor</code>:</strong> Tự động thêm header `Authorization: Bearer <token>` vào mọi request gửi đến API được bảo vệ.</li>
-                                    <li><strong><code>ErrorInterceptor</code>:</strong> Bắt các lỗi HTTP (như 401, 403, 500) để xử lý tập trung, ví dụ: tự động đăng xuất người dùng khi token hết hạn (lỗi 401) hoặc hiển thị thông báo lỗi chung.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Accordion Item 5 -->
-                     <div class="arch-accordion-item bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden transition-all duration-300">
-                        <div class="arch-item p-4 cursor-pointer hover:bg-slate-100">
-                            <h4 class="font-semibold text-lg">Shared & Layout</h4>
-                            <p class="text-sm text-slate-500">Tái sử dụng code và giao diện chung</p>
-                        </div>
-                        <div class="arch-content">
-                             <div class="arch-content-inner p-4 border-t border-slate-200">
-                                <p class="mb-3">Tập hợp các thành phần có thể tái sử dụng trên toàn ứng dụng để tuân thủ nguyên tắc DRY (Don't Repeat Yourself).</p>
-                                 <ul>
-                                    <li><strong>Shared:</strong> Chứa các component chung (`Button`, `Modal`), pipes (`vndCurrency`), và directives (`hasPermission`). Với kiến trúc Standalone, chúng được import trực tiếp vào nơi cần sử dụng.</li>
-                                    <li><strong>Layout:</strong> Chứa các component cấu thành nên khung sườn của ứng dụng như `Sidebar`, `Header`, `Footer`. Các component này định hình giao diện chung và thường chứa các outlet (`<router-outlet>`) để hiển thị nội dung của các trang.</li>
+                                    <li><strong>Components:</strong> Được chia theo tính năng và đặt trong các thư mục tương ứng dưới <code>src/app/pages/</code> hoặc <code>src/app/shared/components/</code> cho các thành phần dùng chung.</li>
+                                    <li><strong>Services:</strong> Được đặt trong <code>src/app/services/</code> cho các service cấp ứng dụng (ví dụ: <code>AuthService</code>, <code>UserService</code>) và <code>src/app/shared/services/</code> cho các service tiện ích dùng chung (<code>UtilsService</code>). Các service thường được cung cấp ở <code>root</code> để có thể sử dụng trên toàn ứng dụng.</li>
+                                    <li><strong>Pipes/Directives:</strong> Mặc dù không có ví dụ rõ ràng về custom pipes/directives trong các file đã đọc, theo cấu trúc thông thường của Angular, chúng sẽ được đặt trong thư mục <code>shared/pipes</code> hoặc <code>shared/directives</code> nếu có.</li>
                                 </ul>
                             </div>
                         </div>
@@ -273,15 +272,42 @@
             <!-- Section: Optimization -->
             <section id="toi-uu" class="content-section space-y-8">
                  <header>
-                    <h2 class="text-4xl font-bold text-slate-900 border-b-4 border-blue-600 pb-2">Tối ưu hóa & Hiệu năng</h2>
+                    <h2 class="text-4xl font-bold text-slate-900 border-b-4 border-blue-600 pb-2">Tối ưu hóa đã áp dụng</h2>
                      <p class="mt-2 text-lg text-slate-600">Các kỹ thuật chính được áp dụng để cải thiện hiệu suất và trải nghiệm người dùng.</p>
                 </header>
                 <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
                     <ul class="space-y-4 list-disc list-inside">
-                        <li><strong>Lazy Loading:</strong> Chỉ tải các module tính năng khi cần thiết, giúp giảm đáng kể thời gian tải ban đầu của ứng dụng.</li>
-                        <li><strong>Global Interceptors:</strong> Quản lý trạng thái tải và xử lý lỗi một cách tập trung, mang lại trải nghiệm người dùng mượt mà và nhất quán.</li>
-                        <li><strong>Standalone Components:</strong> Sử dụng kiến trúc component độc lập của Angular 19 giúp giảm boilerplate, cải thiện khả năng tree-shaking và tối ưu hóa kích thước bundle.</li>
-                        <li><strong>Local Cache:</strong> Dùng `localStorage` để lưu trữ token và thông tin người dùng, giúp duy trì trạng thái đăng nhập và giảm số lượng request không cần thiết đến server.</li>
+                        <li><strong>Change Detection Strategy (OnPush):</strong> <code>UsersManagerComponent</code> và <code>AdminManagerComponent</code> sử dụng <code>ChangeDetectionStrategy.OnPush</code>. Điều này giúp tối ưu hóa hiệu suất bằng cách chỉ chạy cơ chế phát hiện thay đổi khi input của component thay đổi hoặc khi có sự kiện được kích hoạt trong component đó.</li>
+                        <li><strong>Lazy Loading:</strong> Như đã đề cập ở phần kiến trúc, lazy loading được áp dụng cho các module route để giảm kích thước bundle ban đầu và cải thiện thời gian tải ứng dụng.</li>
+                        <li><strong>HTTP Interceptors:</strong>
+                            <ul class="list-disc list-inside ml-4">
+                                <li><code>loadingInterceptor</code>: Quản lý trạng thái loading toàn cục của ứng dụng, hiển thị spinner khi có yêu cầu HTTP đang diễn ra và ẩn đi khi tất cả các yêu cầu hoàn tất. Điều này cải thiện trải nghiệm người dùng bằng cách cung cấp phản hồi trực quan.</li>
+                                <li><code>errorInterceptor</code>: Xử lý lỗi HTTP tập trung, hiển thị thông báo lỗi thân thiện với người dùng và tự động đăng xuất/chuyển hướng khi gặp lỗi 401 (Unauthorized).</li>
+                                <li><code>authInterceptor</code>: Tự động thêm token xác thực vào header của mỗi yêu cầu HTTP, giúp đơn giản hóa việc quản lý xác thực.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Local Cache (AuthService):</strong> <code>AuthService</code> sử dụng <code>localStorage</code> để lưu trữ token xác thực và thông tin người dùng hiện tại, giúp duy trì trạng thái đăng nhập giữa các phiên làm việc. <code>BehaviorSubject</code> được sử dụng để quản lý trạng thái người dùng và token, cho phép các component khác đăng ký nhận thông báo khi trạng thái này thay đổi.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Section: Scalability -->
+            <section id="kha-nang-mo-rong" class="content-section space-y-8">
+                <header>
+                    <h2 class="text-4xl font-bold text-slate-900 border-b-4 border-blue-600 pb-2">Khả năng mở rộng</h2>
+                    <p class="mt-2 text-lg text-slate-600">Các yếu tố thiết kế giúp dự án dễ dàng mở rộng và bảo trì.</p>
+                </header>
+                <div class="bg-white p-8 rounded-xl shadow-md border border-slate-200">
+                    <ul class="space-y-4 list-disc list-inside">
+                        <li><strong>Code dễ thêm tính năng:</strong> Kiến trúc module hóa và phân chia rõ ràng các concerns (layout, auth, managers, shared) giúp dễ dàng thêm các tính năng mới mà không ảnh hưởng lớn đến các phần khác của ứng dụng. Mỗi tính năng có thể được phát triển trong module riêng của nó.</li>
+                        <li><strong>Feature module độc lập:</strong> Việc sử dụng lazy loading và tách các route thành các file riêng biệt (<code>pages.routes.ts</code>, <code>auth.routes.ts</code>) cho phép các tính năng hoạt động tương đối độc lập, dễ dàng bảo trì và mở rộng.</li>
+                        <li><strong>Reusable directive/service:</strong>
+                            <ul class="list-disc list-inside ml-4">
+                                <li><code>UtilsService</code>: Cung cấp các hàm tiện ích chung (quản lý localStorage, validate email/password, format date, get initials) có thể tái sử dụng trên toàn ứng dụng.</li>
+                                <li><code>shared/components</code>: Các component như <code>LoadingSpinnerComponent</code> và <code>LogoComponent</code> được thiết kế để dùng chung, giảm thiểu việc lặp lại code.</li>
+                                <li><code>AbilityService</code>: Cung cấp một cơ chế phân quyền tập trung và có thể mở rộng, cho phép định nghĩa các quyền mới và áp dụng chúng một cách linh hoạt.</li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </section>
@@ -294,16 +320,53 @@
                 </header>
                  <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-6">
                     <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 hover:shadow-lg hover:border-blue-500 transition-all duration-300">
-                        <h3 class="text-xl font-semibold text-blue-700 mb-2">Route Guard</h3>
-                        <p class="text-sm">Kiểm tra sự tồn tại của token xác thực trong `localStorage` hoặc state service trước khi kích hoạt một route. Nếu token không hợp lệ hoặc đã hết hạn, Guard sẽ sử dụng `Router` service của Angular để hủy điều hướng và đưa người dùng về trang đăng nhập, đảm bảo component của route được bảo vệ không bao giờ được khởi tạo.</p>
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">Route Guard (<code>authGuard</code>)</h3>
+                        <p class="text-sm">Bảo vệ các route, đảm bảo rằng chỉ những người dùng đã đăng nhập mới có thể truy cập vào các trang nhất định. Nếu người dùng chưa đăng nhập, họ sẽ được chuyển hướng đến trang đăng nhập.</p>
                     </div>
                     <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 hover:shadow-lg hover:border-blue-500 transition-all duration-300">
-                        <h3 class="text-xl font-semibold text-blue-700 mb-2">Auth Interceptor</h3>
-                        <p class="text-sm">Tự động đính kèm token xác thực (`Authorization: Bearer <token>`) vào mỗi request API gửi đi. Giải pháp này giúp tập trung hóa logic, tránh lặp code. Ngoài ra, Interceptor còn có thể xử lý lỗi 401 (Unauthorized) bằng cách tự động đăng xuất người dùng hoặc thực thi luồng làm mới token.</p>
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">HTTP Interceptors</h3>
+                        <ul class="text-sm list-disc list-inside ml-4">
+                            <li><code>AuthInterceptor</code>: Tự động thêm <code>Authorization</code> header với Bearer token vào mỗi yêu cầu HTTP đi, đảm bảo rằng các yêu cầu đến API được xác thực.</li>
+                            <li><code>ErrorInterceptor</code>: Xử lý các lỗi HTTP từ server, đặc biệt là lỗi 401 (Unauthorized), tự động đăng xuất người dùng và chuyển hướng về trang đăng nhập, giúp duy trì trạng thái bảo mật.</li>
+                        </ul>
                     </div>
                     <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 hover:shadow-lg hover:border-blue-500 transition-all duration-300">
-                        <h3 class="text-xl font-semibold text-blue-700 mb-2">RBAC với CASL</h3>
-                        <p class="text-sm">Phân quyền chi tiết dựa trên vai trò (Role-Based Access Control) bằng thư viện CASL. CASL cho phép định nghĩa quyền hạn một cách linh hoạt (VD: "admin" `can` 'update' `Post`). Trong giao diện, các chỉ thị (directives) tùy chỉnh sẽ dùng các quyền này để ẩn/hiện các nút hành động (như Sửa, Xóa), đảm bảo người dùng chỉ thấy các chức năng mà họ được phép sử dụng.</p>
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">Phân quyền (<code>AbilityService</code>)</h3>
+                        <p class="text-sm">Sử dụng thư viện <code>@casl/ability</code> để triển khai phân quyền dựa trên vai trò (Owner, Admin, User). Các quyền được định nghĩa rõ ràng (ví dụ: Owner có thể <code>manage</code> <code>all</code>, Admin có thể <code>manage</code> <code>user</code> nhưng không thể <code>manage</code> <code>admin</code>). Điều này đảm bảo rằng người dùng chỉ có thể thực hiện các hành động mà họ được phép.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 hover:shadow-lg hover:border-blue-500 transition-all duration-300">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">Quản lý token, session</h3>
+                        <p class="text-sm"><code>AuthService</code> quản lý token xác thực và thông tin người dùng bằng cách lưu trữ chúng trong <code>localStorage</code> và sử dụng <code>BehaviorSubject</code> để theo dõi trạng thái đăng nhập. Token được gửi đi với mỗi yêu cầu API thông qua <code>AuthInterceptor</code>.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 hover:shadow-lg hover:border-blue-500 transition-all duration-300">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">Chống XSS, CSRF</h3>
+                        <p class="text-sm">Angular có các cơ chế bảo mật tích hợp để chống lại các lỗ hổng phổ biến như XSS (Cross-Site Scripting) thông qua việc tự động sanitize HTML và CSRF (Cross-Site Request Forgery) thông qua việc sử dụng các token bảo mật (mặc dù không thấy cấu hình CSRF token rõ ràng trong các file đã đọc, Angular thường tích hợp sẵn hoặc dễ dàng cấu hình với backend).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section: AI Usage -->
+            <section id="su-dung-ai" class="content-section space-y-8">
+                <header>
+                    <h2 class="text-4xl font-bold text-slate-900 border-b-4 border-blue-600 pb-2">Sử dụng AI xây dựng</h2>
+                    <p class="mt-2 text-lg text-slate-600">Vai trò của AI trong quá trình phát triển và tiềm năng cải thiện UX.</p>
+                </header>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 hover:shadow-lg hover:border-blue-500 transition-all duration-300">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">AI đã hỗ trợ những phần nào?</h3>
+                        <ul class="text-sm list-disc list-inside">
+                            <li><strong>Chuyển đổi Style:</strong> Di chuyển các inline styles và Tailwind CSS classes từ file HTML (<code>register.component.html</code>) sang file SCSS (<code>register.component.scss</code>) tương ứng, giúp code sạch hơn và dễ bảo trì hơn.</li>
+                            <li><strong>Tạo tài liệu tổng quan:</strong> Tổng hợp thông tin từ nhiều file và thư mục khác nhau trong dự án để tạo ra tài liệu <code>overview.md</code> này, bao gồm phân tích kiến trúc, công nghệ, tối ưu hóa và bảo mật.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-slate-200 hover:shadow-lg hover:border-blue-500 transition-all duration-300">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-2">UX thông minh hơn nhờ AI ra sao?</h3>
+                        <ul class="text-sm list-disc list-inside">
+                            <li><strong>Gợi ý thông minh:</strong> AI có thể phân tích hành vi người dùng để đưa ra gợi ý cá nhân hóa (ví dụ: gợi ý vai trò phù hợp khi tạo người dùng mới dựa trên các vai trò phổ biến).</li>
+                            <li><strong>Tự động điền/kiểm tra form:</strong> AI có thể cải thiện trải nghiệm nhập liệu bằng cách tự động điền thông tin hoặc kiểm tra tính hợp lệ của dữ liệu theo thời gian thực một cách thông minh hơn.</li>
+                            <li><strong>Hỗ trợ tìm kiếm nâng cao:</strong> Sử dụng AI để cung cấp kết quả tìm kiếm chính xác và liên quan hơn trong các bảng quản lý người dùng/admin.</li>
+                            <li><strong>Phân tích và cảnh báo bất thường:</strong> AI có thể giám sát các hoạt động của người dùng và hệ thống để phát hiện các hành vi bất thường hoặc các vấn đề bảo mật tiềm ẩn, từ đó đưa ra cảnh báo kịp thời.</li>
+                        </ul>
                     </div>
                 </div>
             </section>
@@ -311,42 +374,64 @@
             <!-- Section: Demo Flow -->
             <section id="demo" class="content-section space-y-8">
                 <header>
-                    <h2 class="text-4xl font-bold text-slate-900 border-b-4 border-blue-600 pb-2">Luồng Demo Quản lý người dùng</h2>
-                    <p class="mt-2 text-lg text-slate-600">Trình tự các bước trong một luồng tương tác điển hình. Nhấn vào từng bước để xem mô tả và hình ảnh minh họa.</p>
+                    <h2 class="text-4xl font-bold text-slate-900 border-b-4 border-blue-600 pb-2">Luồng Demo sản phẩm</h2>
+                    <p class="mt-2 text-lg text-slate-600">Để demo sản phẩm, tôi sẽ trình bày một luồng chính trong chức năng quản lý người dùng hoặc quản lý admin.</p>
                 </header>
                 <div class="space-y-6">
                     <div class="flex flex-col md:flex-row items-stretch justify-center gap-2 text-center" id="demo-steps">
                         <div class="step-item flex-1 p-4 border-2 border-slate-300 rounded-lg cursor-pointer transition-all duration-200" data-target="step-1">1. Đăng nhập</div>
                         <div class="hidden md:flex items-center text-slate-400 text-2xl">&rarr;</div>
-                        <div class="step-item flex-1 p-4 border-2 border-slate-300 rounded-lg cursor-pointer transition-all duration-200" data-target="step-2">2. Dashboard</div>
+                        <div class="step-item flex-1 p-4 border-2 border-slate-300 rounded-lg cursor-pointer transition-all duration-200" data-target="step-2">2. Xem danh sách người dùng</div>
                         <div class="hidden md:flex items-center text-slate-400 text-2xl">&rarr;</div>
-                        <div class="step-item flex-1 p-4 border-2 border-slate-300 rounded-lg cursor-pointer transition-all duration-200" data-target="step-3">3. Quản lý User</div>
+                        <div class="step-item flex-1 p-4 border-2 border-slate-300 rounded-lg cursor-pointer transition-all duration-200" data-target="step-3">3. Thêm người dùng mới</div>
                         <div class="hidden md:flex items-center text-slate-400 text-2xl">&rarr;</div>
-                        <div class="step-item flex-1 p-4 border-2 border-slate-300 rounded-lg cursor-pointer transition-all duration-200" data-target="step-4">4. Đăng xuất</div>
+                        <div class="step-item flex-1 p-4 border-2 border-slate-300 rounded-lg cursor-pointer transition-all duration-200" data-target="step-4">4. Sửa thông tin người dùng</div>
+                        <div class="hidden md:flex items-center text-slate-400 text-2xl">&rarr;</div>
+                        <div class="step-item flex-1 p-4 border-2 border-slate-300 rounded-lg cursor-pointer transition-all duration-200" data-target="step-5">5. Xóa người dùng</div>
+                        <div class="hidden md:flex items-center text-slate-400 text-2xl">&rarr;</div>
+                        <div class="step-item flex-1 p-4 border-2 border-slate-300 rounded-lg cursor-pointer transition-all duration-200" data-target="step-6">6. Xử lý đặc biệt</div>
                     </div>
                     <div id="demo-details" class="bg-white p-6 rounded-xl shadow-md border border-slate-200 min-h-[320px] flex items-center justify-center">
                         <div id="step-1" class="step-content">
                             <div class="flex flex-col md:flex-row items-center gap-6 text-left">
                                 <img src="https://placehold.co/400x250/e0f2fe/0c4a6e?text=Trang+Dang+Nhap" alt="Minh họa Đăng nhập" class="w-full md:w-1/2 rounded-lg shadow-md object-cover">
-                                <p class="md:w-1/2"><strong>Đăng nhập:</strong> Người dùng nhập thông tin. `AuthGuard` và `AuthService` xác thực. `AuthInterceptor` sẽ gắn token cho các request sau này.</p>
+                                <p class="md:w-1/2"><strong>Đăng nhập:</strong> Người dùng đăng nhập với vai trò <code>admin</code> hoặc <code>owner</code> để có quyền truy cập vào trang quản lý người dùng.</p>
                             </div>
                         </div>
                         <div id="step-2" class="step-content">
                              <div class="flex flex-col md:flex-row items-center gap-6 text-left">
-                                <img src="https://placehold.co/400x250/dcfce7/14532d?text=Dashboard+Phan+Tich" alt="Minh họa Dashboard" class="w-full md:w-1/2 rounded-lg shadow-md object-cover">
-                                <p class="md:w-1/2"><strong>Dashboard:</strong> Sau khi đăng nhập, người dùng thấy trang dashboard với các biểu đồ và thống kê, minh họa khả năng phân tích real-time.</p>
+                                <img src="https://placehold.co/400x250/dcfce7/14532d?text=Danh+Sach+Nguoi+Dung" alt="Minh họa Danh sách người dùng" class="w-full md:w-1/2 rounded-lg shadow-md object-cover">
+                                <p class="md:w-1/2"><strong>Xem danh sách người dùng:</strong> Sau khi đăng nhập, người dùng sẽ được chuyển hướng đến trang dashboard, từ đó có thể điều hướng đến trang "Users Manager". Tại đây, một bảng (PrimeNG Table) sẽ hiển thị danh sách các người dùng hiện có.</p>
                             </div>
                         </div>
                         <div id="step-3" class="step-content">
                             <div class="flex flex-col md:flex-row items-center gap-6 text-left">
-                                <img src="https://placehold.co/400x250/fef3c7/b45309?text=Quan+Ly+Nguoi+Dung" alt="Minh họa Quản lý User" class="w-full md:w-1/2 rounded-lg shadow-md object-cover">
-                                <p class="md:w-1/2"><strong>Quản lý User:</strong> Người dùng có quyền (admin/owner) truy cập trang quản lý. `AbilityService` (CASL) kiểm tra quyền để thực hiện thêm/sửa/xóa.</p>
+                                <img src="https://placehold.co/400x250/fef3c7/b45309?text=Them+Nguoi+Dung" alt="Minh họa Thêm người dùng" class="w-full md:w-1/2 rounded-lg shadow-md object-cover">
+                                <p class="md:w-1/2"><strong>Thêm người dùng mới:</strong> Nhấn nút "New" để mở dialog thêm người dùng. Điền thông tin (Tên, Username, Email, Password, Role, Status). Nhấn "Save". Hệ thống sẽ gọi <code>userService.createUser()</code> để thêm người dùng mới.</p>
                             </div>
                         </div>
                         <div id="step-4" class="step-content">
                             <div class="flex flex-col md:flex-row items-center gap-6 text-left">
-                                <img src="https://placehold.co/400x250/fee2e2/991b1b?text=Xac+Nhan+Dang+Xuat" alt="Minh họa Đăng xuất" class="w-full md:w-1/2 rounded-lg shadow-md object-cover">
-                                <p class="md:w-1/2"><strong>Đăng xuất:</strong> Người dùng đăng xuất. `AuthService` xóa token khỏi `localStorage` và `AbilityService` reset quyền.</p>
+                                <img src="https://placehold.co/400x250/fee2e2/991b1b?text=Sua+Nguoi+Dung" alt="Minh họa Sửa người dùng" class="w-full md:w-1/2 rounded-lg shadow-md object-cover">
+                                <p class="md:w-1/2"><strong>Sửa thông tin người dùng:</strong> Chọn một người dùng từ bảng và nhấn nút "Edit". Dialog sẽ hiển thị thông tin của người dùng đó. Thay đổi thông tin (ví dụ: Role, Status) và nhấn "Save". Hệ thống sẽ gọi <code>userService.updateUser()</code> để cập nhật.</p>
+                            </div>
+                        </div>
+                        <div id="step-5" class="step-content">
+                            <div class="flex flex-col md:flex-row items-center gap-6 text-left">
+                                <img src="https://placehold.co/400x250/e0f2fe/0c4a6e?text=Xoa+Nguoi+Dung" alt="Minh họa Xóa người dùng" class="w-full md:w-1/2 rounded-lg shadow-md object-cover">
+                                <p class="md:w-1/2"><strong>Xóa người dùng:</strong> Chọn một hoặc nhiều người dùng từ bảng và nhấn nút "Delete Selected" hoặc nhấn nút "Delete" trên từng dòng. Xác nhận hành động xóa. Hệ thống sẽ gọi <code>userService.deleteUser()</code> để xóa người dùng.</p>
+                            </div>
+                        </div>
+                        <div id="step-6" class="step-content">
+                            <div class="flex flex-col md:flex-row items-center gap-6 text-left">
+                                <img src="https://placehold.co/400x250/dcfce7/14532d?text=Xu+Ly+Dac+Biet" alt="Minh họa Xử lý đặc biệt" class="w-full md:w-1/2 rounded-lg shadow-md object-cover">
+                                <p class="md:w-1/2"><strong>Xử lý đặc biệt:</strong>
+                                    <ul class="list-disc list-inside ml-4">
+                                        <li><strong>Phân quyền:</strong> Các nút "Add", "Edit", "Delete" sẽ bị vô hiệu hóa hoặc ẩn đi nếu người dùng hiện tại không có quyền (<code>canManageUsers</code> được kiểm tra bởi <code>AbilityService</code>). Ví dụ, một <code>User</code> không thể quản lý người dùng khác, một <code>Admin</code> không thể quản lý <code>Admin</code> khác hoặc <code>Owner</code>.</li>
+                                        <li><strong>Thông báo:</strong> Các thông báo (Toast) sẽ xuất hiện để xác nhận thành công hoặc hiển thị lỗi (ví dụ: lỗi xác thực, lỗi phân quyền) thông qua <code>MessageService</code> và <code>ErrorInterceptor</code>.</li>
+                                        <li><strong>Loading Spinner:</strong> <code>LoadingSpinnerComponent</code> sẽ tự động hiển thị trong quá trình gửi yêu cầu API và biến mất khi nhận được phản hồi, nhờ vào <code>LoadingInterceptor</code>.</li>
+                                    </ul>
+                                </p>
                             </div>
                         </div>
                         <div id="step-default">
