@@ -1,10 +1,11 @@
 <app-floating-configurator />
-<div class="bg-surface-50 dark:bg-surface-950 flex items-center justify-center min-h-screen min-w-[100vw] overflow-hidden">
-    <div class="flex flex-col items-center justify-center">
-        <div style="border-radius: 56px; padding: 0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%)">
-            <div class="w-full bg-surface-0 dark:bg-surface-900 py-20 px-8 sm:px-20 flex flex-col items-center" style="border-radius: 53px">
-                <div class="flex flex-col items-center">
-                    <svg viewBox="0 0 54 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-12 mr-2 mb-4">
+<app-floating-configurator />
+<div class="register-container">
+    <div class="register-card-wrapper">
+        <div class="register-card-border">
+            <div class="register-card">
+                <div class="register-header">
+                    <svg viewBox="0 0 54 40" fill="none" xmlns="http://www.w3.org/2000/svg" class="register-logo">
                         <path
                             fill-rule="evenodd"
                             clip-rule="evenodd"
@@ -21,26 +22,44 @@
                             />
                         </g>
                     </svg>
-                    <div class="text-surface-900 dark:text-surface-0 text-3xl font-medium mb-4">Create Account</div>
-                    <span class="text-muted-color font-medium">Sign up to get started</span>
+                    <div class="register-title">Create Account</div>
+                    <span class="register-subtitle">Sign up to get started</span>
                 </div>
 
-                <div>
-                    <label for="name" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Name</label>
-                    <input pInputText id="name" type="text" placeholder="Name" class="w-full md:w-[30rem] mb-8" [(ngModel)]="name" />
+                <form [formGroup]="registerForm" (ngSubmit)="register()">
+                    <div class="form-field-spacing">
+                        <label for="name" class="form-label">Name</label>
+                        <input pInputText id="name" type="text" placeholder="Name" class="form-input" formControlName="name" />
+                        <small class="p-error block mb-8" *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">Name is required.</small>
+                    </div>
 
-                    <label for="username" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Username</label>
-                    <input pInputText id="username" type="text" placeholder="Username" class="w-full md:w-[30rem] mb-8" [(ngModel)]="username" />
+                    <div class="form-field-spacing">
+                        <label for="username" class="form-label">Username</label>
+                        <input pInputText id="username" type="text" placeholder="Username" class="form-input" formControlName="username" />
+                        <small class="p-error block mb-8" *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">Username is required.</small>
+                    </div>
 
-                    <label for="email" class="block text-surface-900 dark:text-surface-0 text-xl font-medium mb-2">Email</label>
-                    <input pInputText id="email" type="email" placeholder="Email address" class="w-full md:w-[30rem] mb-8" [(ngModel)]="email" />
+                    <div class="form-field-spacing">
+                        <label for="email" class="form-label">Email</label>
+                        <input pInputText id="email" type="email" placeholder="Email address" class="form-input" formControlName="email" />
+                        <small class="p-error block mb-8" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+                            <span *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</span>
+                            <span *ngIf="registerForm.get('email')?.errors?.['email']">Enter a valid email.</span>
+                        </small>
+                    </div>
 
-                    <label for="password" class="block text-surface-900 dark:text-surface-0 font-medium text-xl mb-2">Password</label>
-                    <p-password id="password" [(ngModel)]="password" placeholder="Password" [toggleMask]="true" styleClass="mb-8" [fluid]="true" [feedback]="false"></p-password>
+                    <div class="form-field-spacing">
+                        <label for="password" class="form-label">Password</label>
+                        <p-password id="password" formControlName="password" placeholder="Password" [toggleMask]="true" [fluid]="true" [feedback]="false"></p-password>
+                        <small class="p-error block mb-8" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+                            <span *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</span>
+                            <span *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters.</span>
+                        </small>
+                    </div>
 
-                    <p-button label="Register" styleClass="w-full" (click)="register()"></p-button>
-                    <div class="mt-4 text-center">Already have an account? <a routerLink="/auth/login" class="text-primary font-medium no-underline">Login</a></div>
-                </div>
+                    <p-button label="Register" styleClass="w-full" type="submit"></p-button>
+                    <div class="register-login-link-wrapper">Already have an account? <a routerLink="/auth/login" class="register-login-link">Login</a></div>
+                </form>
             </div>
         </div>
     </div>

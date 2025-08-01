@@ -80,6 +80,15 @@
       "role": "owner",
       "name": "Owner User",
       "status": "active"
+    },
+    {
+      "id": "80zx0j60l",
+      "username": "ane",
+      "password": "Samsung",
+      "email": "ane@gmail.com",
+      "role": "user",
+      "name": "ane",
+      "status": "active"
     }
   ]
 }

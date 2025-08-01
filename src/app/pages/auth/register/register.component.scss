@@ -1,0 +1,110 @@
+.form-field-spacing {
+    margin-bottom: 1.5rem; /* Equivalent to mb-6 in Tailwind, or adjust as needed */
+}
+
+.p-error {
+    color: red;
+}
+
+.register-container {
+    background-color: var(--surface-50);
+    &.dark {
+        background-color: var(--surface-950);
+    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    min-width: 100vw;
+    overflow: hidden;
+}
+
+.register-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.register-card-border {
+    border-radius: 56px;
+    padding: 0.3rem;
+    background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);
+}
+
+.register-card {
+    width: 100%;
+    background-color: var(--surface-0);
+    &.dark {
+        background-color: var(--surface-900);
+    }
+    padding: 5rem 2rem; /* py-20 px-8 */
+    @media (min-width: 640px) { /* sm:px-20 */
+        padding-left: 5rem;
+        padding-right: 5rem;
+    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 53px;
+}
+
+.register-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.register-logo {
+    height: 3rem; /* h-12 */
+    margin-right: 0.5rem; /* mr-2 */
+    margin-bottom: 1rem; /* mb-4 */
+}
+
+.register-title {
+    color: var(--surface-900);
+    &.dark {
+        color: var(--surface-0);
+    }
+    font-size: 1.875rem; /* text-3xl */
+    font-weight: 500; /* font-medium */
+    margin-bottom: 1rem; /* mb-4 */
+}
+
+.register-subtitle {
+    color: var(--muted-color);
+    font-weight: 500; /* font-medium */
+}
+
+.form-label {
+    display: block;
+    color: var(--surface-900);
+    &.dark {
+        color: var(--surface-0);
+    }
+    font-size: 1.25rem; /* text-xl */
+    font-weight: 500; /* font-medium */
+    margin-bottom: 0.5rem; /* mb-2 */
+}
+
+.form-input {
+    width: 100%;
+    @media (min-width: 768px) { /* md:w-[30rem] */
+        width: 30rem;
+    }
+}
+
+.p-button {
+    width: 100%;
+}
+
+.register-login-link-wrapper {
+    margin-top: 1rem; /* mt-4 */
+    text-align: center;
+}
+
+.register-login-link {
+    color: var(--primary-color);
+    font-weight: 500; /* font-medium */
+    text-decoration: none; /* no-underline */
+}
