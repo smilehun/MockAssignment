@@ -52,7 +52,7 @@
       "email": "user_zeta@example.com",
       "role": "user",
       "name": "Zeta User",
-      "status": "pending"
+      "status": "active"
     },
     {
       "id": "8",
@@ -68,7 +68,7 @@
       "username": "user_theta",
       "password": "user",
       "email": "user_theta@example.com",
-      "role": "user",
+      "role": "admin",
       "name": "Theta User",
       "status": "active"
     },

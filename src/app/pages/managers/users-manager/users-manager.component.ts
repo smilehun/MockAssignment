@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal, ViewChild } from '@angular/core';
 import { Ability } from '@casl/ability';
 import { AbilityService } from '../../../services/ability.service';
 import { AuthService } from '../../../services/auth.service';
@@ -60,7 +60,8 @@ interface ExportColumn {
     ],
     templateUrl: './users-manager.component.html',
     styleUrl: './users-manager.component.scss',
-    providers: [MessageService, ConfirmationService]
+    providers: [MessageService, ConfirmationService],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UsersManagerComponent implements OnInit {
     ability!: Ability;

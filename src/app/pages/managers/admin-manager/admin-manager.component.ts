@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, signal, ViewChild } from '@angular/core';
 import { Ability } from '@casl/ability';
 import { AbilityService } from '../../../services/ability.service';
 import { CommonModule } from '@angular/common';
@@ -63,7 +63,8 @@ interface ExportColumn {
     ],
     templateUrl: './admin-manager.component.html',
     styleUrl: './admin-manager.component.scss',
-    providers: [MessageService, ConfirmationService]
+    providers: [MessageService, ConfirmationService],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AdminManagerComponent implements OnInit {
     ability!: Ability;
