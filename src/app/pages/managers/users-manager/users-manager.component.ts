@@ -70,6 +70,7 @@ export class UsersManagerComponent implements OnInit {
     selectedUsers!: User[] | null;
     submitted: boolean = false;
     statuses!: any[];
+    roles!: any[];
     canManageUsers: boolean = false; // New property to control UI elements
 
     @ViewChild('dt') dt!: Table;
@@ -91,7 +92,6 @@ export class UsersManagerComponent implements OnInit {
         console.log('canManageUsers:', this.canManageUsers);
         console.log('Ability rules:', this.ability.rules);
         console.log('Can manage all:', this.ability.can('manage', 'all'));
-        console.log('Can manage user:', this.ability.can('manage', 'user'));
         console.log('Current user:', this.authService.currentUserValue);
         this.loadUsers();
 
@@ -99,6 +99,12 @@ export class UsersManagerComponent implements OnInit {
             { label: 'Active', value: 'active' },
             { label: 'Inactive', value: 'inactive' },
             { label: 'Pending', value: 'pending' }
+        ];
+
+        this.roles = [
+            { label: 'Admin', value: 'admin' },
+            { label: 'User', value: 'user' },
+            { label: 'Owner', value: 'owner' }
         ];
 
         this.cols = [
@@ -187,7 +193,7 @@ export class UsersManagerComponent implements OnInit {
         this.confirmationService.confirm({
             message: 'Are you sure you want to delete ' + user.name + '?',
             header: 'Confirm',
-            icon: 'pi pi-exclamation-triangle',
+            icon: 'pi pi pi-exclamation-triangle',
             accept: () => {
                 this.userService.deleteUser(user).subscribe({
                     next: () => {
@@ -221,13 +227,10 @@ export class UsersManagerComponent implements OnInit {
         });
     }
 
-    findIndexById(user: User): number {
+    findIndexById(id: string): number {
         let index = -1;
-        if (!user.id) {
-            return index; // Return -1 if user.id is undefined
-        }
         for (let i = 0; i < this.users().length; i++) {
-            if (this.users()[i].id === user.id) {
+            if (this.users()[i].id === id) {
                 index = i;
                 break;
             }
@@ -264,72 +267,25 @@ export class UsersManagerComponent implements OnInit {
         }
         this.submitted = true;
         let _users = this.users();
-        if ((this.user.name?.trim() ?? '') !== '' && (this.user.email?.trim() ?? '') !== '' && (this.user.role?.trim() ?? '') !== '' && (this.user.username?.trim() ?? '') !== '') {
+        if (this.user.name?.trim() && this.user.email?.trim() && this.user.role?.trim()) {
             if (this.user.id) {
-                this.userService.updateUser(this.user).subscribe({
-                    next: () => {
-                        const index = this.findIndexById(this.user);
-                        if (index !== -1) {
-                            _users[index] = this.user;
-                            this.users.set([..._users]);
-                            this.messageService.add({
-                                severity: 'success',
-                                summary: 'Successful',
-                                detail: 'User Updated',
-                                life: 3000
-                            });
-                        } else {
-                            this.messageService.add({
-                                severity: 'warn',
-                                summary: 'Warning',
-                                detail: 'User not found',
-                                life: 3000
-                            });
-                        }
-                    },
-                    error: (error) => {
-                        console.error('Error updating user', error);
-                        this.messageService.add({
-                            severity: 'error',
-                            summary: 'Error',
-                            detail: 'Failed to update user',
-                            life: 3000
-                        });
-                    }
+                _users[this.findIndexById(this.user.id)] = this.user;
+                this.users.set([..._users]);
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Successful',
+                    detail: 'User Updated',
+                    life: 3000
                 });
             } else {
                 this.user.id = this.createId();
-                this.user.status = 'pending'; // Default status for new users
-
-                // Create new user via service
-                const newUser: Omit<User, 'id'> = {
-                    username: this.user.username!,
-                    email: this.user.email!,
-                    role: this.user.role as 'admin' | 'user',
-                    name: this.user.name!,
-                    status: this.user.status as 'active' | 'inactive' | 'pending'
-                };
-
-                this.userService.createUser(newUser).subscribe({
-                    next: (createdUser) => {
-                        this.users.set([..._users, createdUser]);
-                        this.messageService.add({
-                            severity: 'success',
-                            summary: 'Successful',
-                            detail: 'User Created',
-                            life: 3000
-                        });
-                    },
-                    error: (error) => {
-                        console.error('Error creating user', error);
-                        this.messageService.add({
-                            severity: 'error',
-                            summary: 'Error',
-                            detail: 'Failed to create user',
-                            life: 3000
-                        });
-                    }
+                this.messageService.add({
+                    severity: 'success',
+                    summary: 'Successful',
+                    detail: 'User Created',
+                    life: 3000
                 });
+                this.users.set([..._users, this.user]);
             }
 
             this.userDialog = false;

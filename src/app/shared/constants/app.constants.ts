@@ -45,6 +45,7 @@ export const APP_CONSTANTS = {
         FORBIDDEN: "Access forbidden. You don't have permission for this action.",
         NOT_FOUND: 'Resource not found.',
         SERVER_ERROR: 'Internal server error. Please try again later.',
+        REGISTRATION_FAILED: 'Registration failed. Please try again.',
         UNEXPECTED_ERROR: 'An unexpected error occurred'
     }
 } as const;

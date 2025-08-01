@@ -29,8 +29,17 @@ export class UserService {
         return this.http.post<User>(this.apiUrl, user).pipe(catchError(this.handleError));
     }
 
-    updateUser(user: User): Observable<User> {
-        return this.http.put<User>(`${this.apiUrl}/${user.id}`, user).pipe(catchError(this.handleError));
+    updateUser(user: Partial<User>): Observable<User> {
+        return this.http.put<User>(`${this.apiUrl}/${user.id}`, user).pipe(
+            catchError(this.handleError)
+        );
+    }
+
+    patchUser(user: Partial<User>): Observable<User> {
+        return this.http.patch<any>(`${this.apiUrl}/${user.id}`, user).pipe(
+            map(response => response.user),
+            catchError(this.handleError)
+        );
     }
 
     deleteUser(user: User): Observable<void> {

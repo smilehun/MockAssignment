@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment';
 import { User, LoginCredentials, RegisterData, UserProfile } from '../shared/models/user.model';
 import { APP_CONSTANTS } from '../shared/constants/app.constants';
 import { UtilsService } from '../shared/services/utils.service';
+import { UserService } from './user.service'; // Import UserService
 
 @Injectable({
     providedIn: 'root'
@@ -23,7 +24,8 @@ export class AuthService {
     constructor(
         private http: HttpClient,
         private abilityService: AbilityService,
-        private utilsService: UtilsService
+        private utilsService: UtilsService,
+        private userService: UserService // Inject UserService
     ) {
         const initialUser = this.utilsService.getFromStorage(this.USER_KEY);
         const initialToken = this.utilsService.getFromStorage(this.TOKEN_KEY);
@@ -94,9 +96,18 @@ export class AuthService {
     }
 
     register(userData: RegisterData): Observable<User> {
-        // For now, just create the user directly
-        // In a real app, you'd want to check for duplicates first
-        return this.http.post<User>(this.apiUrl, userData);
+        const userToRegister = {
+            ...userData,
+            name: userData.name,
+            role: userData.role || APP_CONSTANTS.USER_ROLES.USER,
+            status: APP_CONSTANTS.USER_STATUSES.ACTIVE
+        };
+        return this.userService.createUser(userToRegister).pipe(
+            catchError((error) => {
+                console.error('Registration error:', error);
+                return throwError(() => new Error(error.error?.message || APP_CONSTANTS.ERROR_MESSAGES.REGISTRATION_FAILED));
+            })
+        );
     }
 
     logout(): void {
@@ -108,15 +119,18 @@ export class AuthService {
     }
 
     // Method to update user profile
-    updateUser(user: any): Observable<any> {
-        // Assuming the in-memory API supports PUT requests to update users by ID
-        return this.http.put(`${this.apiUrl}/${user.id}`, user).pipe(
-            tap((updatedUser: any) => {
+    updateUser(user: UserProfile): Observable<User> {
+        return this.userService.updateUser(user).pipe(
+            tap((updatedUser: User) => {
                 if (updatedUser) {
                     this.utilsService.setToStorage(this.USER_KEY, updatedUser);
                     this.currentUserSubject.next(updatedUser);
                     this.abilityService.updateAbility(updatedUser.role);
                 }
+            }),
+            catchError((error) => {
+                console.error('Update user error:', error);
+                return throwError(() => new Error(error.error?.message || APP_CONSTANTS.ERROR_MESSAGES.UNEXPECTED_ERROR));
             })
         );
     }

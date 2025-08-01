@@ -14,6 +14,7 @@ import { AuthService } from '../../../services/auth.service';
     imports: [ButtonModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, AppFloatingConfigurator]
 })
 export class RegisterComponent {
+    name: string = '';
     username: string = '';
     email: string = '';
     password: string = '';
@@ -24,7 +25,7 @@ export class RegisterComponent {
     ) {}
 
     register() {
-        this.authService.register({ username: this.username, email: this.email, password: this.password, role: 'user' }).subscribe(
+        this.authService.register({ name: this.name, username: this.username, email: this.email, password: this.password, role: 'user' }).subscribe(
             (response: any) => {
                 console.log('Registration successful', response);
                 alert('Registration successful! Please login.');

@@ -14,7 +14,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { RatingModule } from 'primeng/rating';
 import { InputTextModule } from 'primeng/inputtext';
 import { TextareaModule } from 'primeng/textarea';
-import { DropdownModule } from 'primeng/dropdown'; // Changed from SelectModule to DropdownModule
+import { DropdownModule } from 'primeng/dropdown';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DialogModule } from 'primeng/dialog';
@@ -73,6 +73,7 @@ export class AdminManagerComponent implements OnInit {
     selectedUsers!: Admin[] | null;
     submitted: boolean = false;
     statuses!: any[];
+    roles!: any[];
     canManageUsers: boolean = false; // New property to control UI elements
 
     @ViewChild('dt') dt!: Table;
@@ -105,6 +106,12 @@ export class AdminManagerComponent implements OnInit {
             { label: 'ACTIVE', value: 'active' },
             { label: 'INACTIVE', value: 'inactive' },
             { label: 'PENDING', value: 'pending' }
+        ];
+
+        this.roles = [
+            { label: 'Admin', value: 'admin' },
+            { label: 'User', value: 'user' },
+            { label: 'Owner', value: 'owner' }
         ];
 
         this.cols = [

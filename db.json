@@ -25,7 +25,7 @@
       "email": "user_beta@example.com",
       "role": "user",
       "name": "Beta User",
-      "status": "inactive"
+      "status": "active"
     },
     {
       "id": "4",
@@ -34,7 +34,7 @@
       "email": "user_gamma@example.com",
       "role": "user",
       "name": "Gamma User",
-      "status": "pending"
+      "status": "active"
     },
     {
       "id": "5",
@@ -50,7 +50,7 @@
       "username": "user_epsilon",
       "password": "user",
       "email": "user_epsilon@example.com",
-      "role": "user",
+      "role": "User",
       "name": "Epsilon User",
       "status": "inactive"
     },
@@ -79,7 +79,7 @@
       "email": "user_theta@example.com",
       "role": "user",
       "name": "Theta User",
-      "status": "inactive"
+      "status": "active"
     },
     {
       "id": "11",
