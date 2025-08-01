@@ -3,7 +3,7 @@ import { Ability } from '@casl/ability';
 import { AbilityService } from '../../../services/ability.service';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../../services/user.service';
-import { User } from '../../../shared/models/user.model';
+import { User, UserRole, UserStatus } from '../../../shared/models/user.model';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table, TableModule } from 'primeng/table';
 import { FormsModule } from '@angular/forms';
@@ -75,6 +75,7 @@ export class AdminManagerComponent implements OnInit {
     statuses!: any[];
     roles!: any[];
     canManageUsers: boolean = false; // New property to control UI elements
+    filteredRoles!: any[]; // Added filteredRoles property
 
     @ViewChild('dt') dt!: Table;
 
@@ -121,11 +122,12 @@ export class AdminManagerComponent implements OnInit {
         ];
 
         this.exportColumns = this.cols.map((col) => ({ title: col.header, dataKey: col.field }));
+        this.updateFilteredRoles(); // Call updateFilteredRoles in ngOnInit
     }
 
     loadAdmins() {
         this.userService.getUsers().subscribe((data) => {
-            this.admins.set(data.filter((user) => user.role === 'admin'));
+            this.admins.set(data.filter((user) => user.role === 'admin')); // Only display users with 'admin' role
         });
     }
 
@@ -138,13 +140,14 @@ export class AdminManagerComponent implements OnInit {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'You are not authorized to add new admins.', life: 3000 });
             return;
         }
+        this.updateFilteredRoles(); // Call updateFilteredRoles in openNew
         this.admin = {
             id: '',
             username: '',
             email: '',
-            role: 'admin',
+            role: UserRole.Admin,
             name: '',
-            status: 'active'
+            status: UserStatus.Active
         };
         this.submitted = false;
         this.adminDialog = true;
@@ -155,6 +158,7 @@ export class AdminManagerComponent implements OnInit {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'You are not authorized to edit admins.', life: 3000 });
             return;
         }
+        this.updateFilteredRoles(); // Call updateFilteredRoles in editAdmin
         this.admin = { ...admin };
         this.adminDialog = true;
     }
@@ -169,14 +173,27 @@ export class AdminManagerComponent implements OnInit {
             header: 'Confirm',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                this.admins.set(this.admins().filter((val) => !this.selectedUsers?.includes(val)));
-                this.selectedUsers = null;
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Successful',
-                    detail: 'Admins Deleted',
-                    life: 3000
-                });
+                const deleteObservables = this.selectedUsers!.map(user => this.userService.deleteUser(user));
+                Promise.all(deleteObservables.map(obs => obs.toPromise()))
+                    .then(() => {
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Successful',
+                            detail: 'Admins Deleted',
+                            life: 3000
+                        });
+                        this.selectedUsers = null;
+                        this.loadAdmins(); // Reload data from server
+                    })
+                    .catch((error) => {
+                        console.error('Error deleting selected admins', error);
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: 'Failed to delete selected admins',
+                            life: 3000
+                        });
+                    });
             }
         });
     }
@@ -187,12 +204,13 @@ export class AdminManagerComponent implements OnInit {
     }
 
     deleteAdmin(admin: Admin) {
-        if (!this.canManageUsers) {
+        // Only owners can delete admins
+        if (this.authService.currentUserValue?.role !== 'owner') {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'You are not authorized to delete admins.', life: 3000 });
             return;
         }
 
-        // Prevent admin from deleting themselves
+        // Prevent owner from deleting themselves
         if (admin.id === this.authService.currentUserValue?.id) {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'You cannot delete your own account.', life: 3000 });
             return;
@@ -210,9 +228,9 @@ export class AdminManagerComponent implements OnInit {
                             id: '',
                             username: '',
                             email: '',
-                            role: 'admin',
+                            role: UserRole.Admin,
                             name: '',
-                            status: 'active'
+                            status: UserStatus.Active
                         };
                         this.messageService.add({
                             severity: 'success',
@@ -255,43 +273,94 @@ export class AdminManagerComponent implements OnInit {
         return id;
     }
 
+    resetAdmin() {
+        this.admin = {
+            id: '',
+            username: '',
+            email: '',
+            role: UserRole.Admin,
+            name: '',
+            status: UserStatus.Active
+        };
+    }
+
+    updateFilteredRoles() {
+        const currentUser = this.authService.currentUserValue;
+        if (!currentUser) {
+            this.filteredRoles = [];
+            return;
+        }
+
+        if (currentUser.role === 'owner') {
+            // Owners can assign 'admin' and 'user' roles
+            this.filteredRoles = this.roles.filter(role => role.value === 'admin' || role.value === 'user');
+        } else if (currentUser.role === 'admin') {
+            // Admins can only assign the 'user' role
+            this.filteredRoles = this.roles.filter(role => role.value === 'user');
+        } else {
+            // Users cannot assign any roles
+            this.filteredRoles = [];
+        }
+    }
+
     saveAdmin() {
         if (!this.canManageUsers) {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'You are not authorized to save admins.', life: 3000 });
             return;
         }
         this.submitted = true;
-        let _admins = this.admins();
+
         if (this.admin.name?.trim() && this.admin.email?.trim() && this.admin.role?.trim()) {
             if (this.admin.id) {
-                _admins[this.findIndexById(this.admin.id)] = this.admin;
-                this.admins.set([..._admins]);
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Successful',
-                    detail: 'Admin Updated',
-                    life: 3000
+                // Update existing admin
+                this.userService.updateUser(this.admin).subscribe({
+                    next: () => {
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Successful',
+                            detail: 'Admin Updated',
+                            life: 3000
+                        });
+                        this.adminDialog = false;
+                        this.resetAdmin();
+                        this.loadAdmins(); // Reload data from server
+                    },
+                    error: (error) => {
+                        console.error('Error updating admin', error);
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: 'Failed to update admin',
+                            life: 3000
+                        });
+                    }
                 });
             } else {
-                this.admin.id = this.createId();
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Successful',
-                    detail: 'Admin Created',
-                    life: 3000
+                // Create new admin
+                const { id, ...newAdmin } = this.admin;
+                this.userService.createUser({ ...newAdmin, role: UserRole.Admin, status: UserStatus.Active }).subscribe({
+                    next: () => {
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Successful',
+                            detail: 'Admin Created',
+                            life: 3000
+                        });
+                        this.adminDialog = false;
+                        this.resetAdmin();
+                        this.loadAdmins(); // Reload data from server
+                    },
+                    error: (error) => {
+                        console.error('Error creating admin', error);
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: 'Failed to create admin',
+                            life: 3000
+                        });
+                    }
                 });
-                this.admins.set([..._admins, this.admin]);
             }
-
-            this.adminDialog = false;
-            this.admin = {
-                id: '',
-                username: '',
-                email: '',
-                role: 'admin',
-                name: '',
-                status: 'active'
-            };
         }
     }
 }

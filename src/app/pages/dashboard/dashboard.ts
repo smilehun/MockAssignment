@@ -107,11 +107,6 @@ export class Dashboard implements OnInit {
         };
     }
 
-    formatLastLogin(): string {
-        // This would come from the current user's last login
-        return this.utilsService.formatDate(new Date());
-    }
-
     getStatusClass(status: string): string {
         switch (status) {
             case 'active':
@@ -136,5 +131,13 @@ export class Dashboard implements OnInit {
             default:
                 return 'bg-gray-100 text-gray-800';
         }
+    }
+
+    formatDate(date: string | Date): string {
+        return this.utilsService.formatDate(date);
+    }
+
+    getInitials(name: string): string {
+        return this.utilsService.getInitials(name);
     }
 }

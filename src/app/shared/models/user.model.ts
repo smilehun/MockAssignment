@@ -1,15 +1,25 @@
+export enum UserRole {
+    Admin = 'admin',
+    User = 'user',
+    Owner = 'owner'
+}
+
+export enum UserStatus {
+    Active = 'active',
+    Inactive = 'inactive',
+    Pending = 'pending'
+}
+
 export interface User {
     id: string;
     username: string;
     email: string;
-    role: 'admin' | 'user' | 'owner';
+    role: UserRole;
     name: string;
-    status: 'active' | 'inactive' | 'pending';
+    status: UserStatus;
     lastLogin?: string;
     password?: string; // For API responses only
 }
-
-export type UserRole = 'admin' | 'user' | 'owner';
 
 export interface LoginCredentials {
     username: string;
@@ -21,7 +31,7 @@ export interface RegisterData {
     name: string;
     email: string;
     password: string;
-    role: 'admin' | 'user' | 'owner';
+    role: UserRole;
 }
 
 export interface UserProfile {
@@ -29,7 +39,7 @@ export interface UserProfile {
     username: string;
     email: string;
     name: string;
-    role: 'admin' | 'user' | 'owner';
-    status: 'active' | 'inactive' | 'pending';
+    role: UserRole;
+    status: UserStatus;
     lastLogin?: string;
 }

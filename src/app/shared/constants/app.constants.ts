@@ -15,19 +15,6 @@ export const APP_CONSTANTS = {
         REGISTER: '/register'
     },
 
-    // User roles
-    USER_ROLES: {
-        ADMIN: 'admin',
-        USER: 'user',
-        OWNER: 'owner'
-    },
-
-    // User statuses
-    USER_STATUSES: {
-        ACTIVE: 'active',
-        INACTIVE: 'inactive',
-        PENDING: 'pending'
-    },
 
     // Default values
     DEFAULTS: {

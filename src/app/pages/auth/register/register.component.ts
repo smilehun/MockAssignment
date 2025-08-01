@@ -7,6 +7,7 @@ import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
 import { AppFloatingConfigurator } from '../../../layout/component/app.floatingconfigurator';
 import { AuthService } from '../../../services/auth.service';
+import { UserRole } from '../../../shared/models/user.model';
 
 @Component({
     selector: 'app-register',
@@ -25,7 +26,7 @@ export class RegisterComponent {
     ) {}
 
     register() {
-        this.authService.register({ name: this.name, username: this.username, email: this.email, password: this.password, role: 'user' }).subscribe(
+        this.authService.register({ name: this.name, username: this.username, email: this.email, password: this.password, role: UserRole.User }).subscribe(
             (response: any) => {
                 console.log('Registration successful', response);
                 alert('Registration successful! Please login.');

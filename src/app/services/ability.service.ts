@@ -28,13 +28,13 @@ export class AbilityService {
         const { can, cannot, rules } = new AbilityBuilder<AppAbility>(createMongoAbility);
 
         switch (role) {
-            case 'owner':
+            case UserRole.Owner:
                 this.setOwnerPermissions(can);
                 break;
-            case 'admin':
+            case UserRole.Admin:
                 this.setAdminPermissions(can, cannot);
                 break;
-            case 'user':
+            case UserRole.User:
                 this.setUserPermissions(can, cannot);
                 break;
         }

@@ -4,7 +4,7 @@ import { AbilityService } from '../../../services/ability.service';
 import { AuthService } from '../../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../../services/user.service';
-import { User } from '../../../shared/models/user.model';
+import { User, UserRole, UserStatus } from '../../../shared/models/user.model';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Table, TableModule } from 'primeng/table';
 import { FormsModule } from '@angular/forms';
@@ -71,7 +71,13 @@ export class UsersManagerComponent implements OnInit {
     submitted: boolean = false;
     statuses!: any[];
     roles!: any[];
+    filteredRoles!: any[];
     canManageUsers: boolean = false; // New property to control UI elements
+    private roleHierarchy = {
+        [UserRole.Owner]: 3,
+        [UserRole.Admin]: 2,
+        [UserRole.User]: 1
+    };
 
     @ViewChild('dt') dt!: Table;
 
@@ -96,15 +102,15 @@ export class UsersManagerComponent implements OnInit {
         this.loadUsers();
 
         this.statuses = [
-            { label: 'Active', value: 'active' },
-            { label: 'Inactive', value: 'inactive' },
-            { label: 'Pending', value: 'pending' }
+            { label: 'Active', value: UserStatus.Active },
+            { label: 'Inactive', value: UserStatus.Inactive },
+            { label: 'Pending', value: UserStatus.Pending }
         ];
 
         this.roles = [
-            { label: 'Admin', value: 'admin' },
-            { label: 'User', value: 'user' },
-            { label: 'Owner', value: 'owner' }
+            { label: 'Admin', value: UserRole.Admin },
+            { label: 'User', value: UserRole.User },
+            { label: 'Owner', value: UserRole.Owner }
         ];
 
         this.cols = [
@@ -115,11 +121,12 @@ export class UsersManagerComponent implements OnInit {
         ];
 
         this.exportColumns = this.cols.map((col) => ({ title: col.header, dataKey: col.field }));
+        this.updateFilteredRoles();
     }
 
     loadUsers() {
         this.userService.getUsers().subscribe((data) => {
-            this.users.set(data);
+            this.users.set(data.filter(user => user.role === UserRole.User)); // Only display users with 'user' role
         });
     }
 
@@ -127,28 +134,67 @@ export class UsersManagerComponent implements OnInit {
         table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
     }
 
+    updateFilteredRoles() {
+        const currentUser = this.authService.currentUserValue;
+        if (!currentUser) {
+            this.filteredRoles = [];
+            return;
+        }
+
+        if (currentUser.role === UserRole.Owner) {
+            // Owners can assign 'admin' and 'user' roles
+            this.filteredRoles = this.roles.filter(role => role.value === UserRole.Admin || role.value === UserRole.User);
+        } else if (currentUser.role === UserRole.Admin) {
+            // Admins can only assign the 'user' role
+            this.filteredRoles = this.roles.filter(role => role.value === UserRole.User);
+        } else {
+            // Users cannot assign any roles
+            this.filteredRoles = [];
+        }
+    }
+
+    canManage(userToManage: User): boolean {
+        const currentUser = this.authService.currentUserValue;
+        if (!currentUser) {
+            return false;
+        }
+
+        // Owners can manage all users except themselves
+        if (currentUser.role === UserRole.Owner) {
+            return currentUser.id !== userToManage.id;
+        }
+
+        // For other roles, apply the hierarchy check
+        const currentUserRoleLevel = this.roleHierarchy[currentUser.role];
+        const userToManageRoleLevel = this.roleHierarchy[userToManage.role];
+
+        return currentUserRoleLevel > userToManageRoleLevel;
+    }
+
     openNew() {
         if (!this.canManageUsers) {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'You are not authorized to add new users.', life: 3000 });
             return;
         }
+        this.updateFilteredRoles();
         this.user = {
             id: '',
             username: '',
             email: '',
-            role: 'user',
+            role: UserRole.User,
             name: '',
-            status: 'pending'
+            status: UserStatus.Pending
         };
         this.submitted = false;
         this.userDialog = true;
     }
 
     editUser(user: User) {
-        if (!this.canManageUsers) {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'You are not authorized to edit users.', life: 3000 });
+        if (!this.canManage(user)) {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'You are not authorized to edit this user.', life: 3000 });
             return;
         }
+        this.updateFilteredRoles();
         this.user = { ...user };
         if (!this.user.id) {
             console.error('User ID is missing!');
@@ -168,14 +214,27 @@ export class UsersManagerComponent implements OnInit {
             header: 'Confirm',
             icon: 'pi pi-exclamation-triangle',
             accept: () => {
-                this.users.set(this.users().filter((val) => !this.selectedUsers?.includes(val)));
-                this.selectedUsers = null;
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Successful',
-                    detail: 'Users Deleted',
-                    life: 3000
-                });
+                const deleteObservables = this.selectedUsers!.map(user => this.userService.deleteUser(user));
+                Promise.all(deleteObservables.map(obs => obs.toPromise()))
+                    .then(() => {
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Successful',
+                            detail: 'Users Deleted',
+                            life: 3000
+                        });
+                        this.selectedUsers = null;
+                        this.loadUsers(); // Reload data from server
+                    })
+                    .catch((error) => {
+                        console.error('Error deleting selected users', error);
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: 'Failed to delete selected users',
+                            life: 3000
+                        });
+                    });
             }
         });
     }
@@ -186,8 +245,8 @@ export class UsersManagerComponent implements OnInit {
     }
 
     deleteUser(user: User) {
-        if (!this.canManageUsers) {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'You are not authorized to delete users.', life: 3000 });
+        if (!this.canManage(user)) {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'You are not authorized to delete this user.', life: 3000 });
             return;
         }
         this.confirmationService.confirm({
@@ -197,21 +256,13 @@ export class UsersManagerComponent implements OnInit {
             accept: () => {
                 this.userService.deleteUser(user).subscribe({
                     next: () => {
-                        this.users.set(this.users().filter((val) => val.id !== user.id));
-                        this.user = {
-                            id: '',
-                            username: '',
-                            email: '',
-                            role: 'user',
-                            name: '',
-                            status: 'pending'
-                        };
                         this.messageService.add({
                             severity: 'success',
                             summary: 'Successful',
                             detail: 'User Deleted',
                             life: 3000
                         });
+                        this.loadUsers(); // Reload data from server
                     },
                     error: (error) => {
                         console.error('Error deleting user', error);
@@ -247,13 +298,13 @@ export class UsersManagerComponent implements OnInit {
         return id;
     }
 
-    getSeverity(status: string) {
+    getSeverity(status: UserStatus) {
         switch (status) {
-            case 'active':
+            case UserStatus.Active:
                 return 'success';
-            case 'inactive':
+            case UserStatus.Inactive:
                 return 'warn';
-            case 'pending':
+            case UserStatus.Pending:
                 return 'info';
             default:
                 return 'info';
@@ -265,38 +316,88 @@ export class UsersManagerComponent implements OnInit {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'You are not authorized to save users.', life: 3000 });
             return;
         }
+
+        const currentUser = this.authService.currentUserValue;
+        if (currentUser) {
+            const currentUserRoleLevel = this.roleHierarchy[currentUser.role];
+            const targetUserRoleLevel = this.roleHierarchy[this.user.role];
+
+            if (targetUserRoleLevel >= currentUserRoleLevel) {
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Error',
+                    detail: 'You cannot assign a role equal to or higher than your own.',
+                    life: 3000
+                });
+                return;
+            }
+        }
+
         this.submitted = true;
-        let _users = this.users();
+
         if (this.user.name?.trim() && this.user.email?.trim() && this.user.role?.trim()) {
             if (this.user.id) {
-                _users[this.findIndexById(this.user.id)] = this.user;
-                this.users.set([..._users]);
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Successful',
-                    detail: 'User Updated',
-                    life: 3000
+                // Update existing user
+                this.userService.updateUser(this.user).subscribe({
+                    next: () => {
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Successful',
+                            detail: 'User Updated',
+                            life: 3000
+                        });
+                        this.userDialog = false;
+                        this.resetUser();
+                        this.loadUsers(); // Reload data from server
+                    },
+                    error: (error) => {
+                        console.error('Error updating user', error);
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: 'Failed to update user',
+                            life: 3000
+                        });
+                    }
                 });
             } else {
-                this.user.id = this.createId();
-                this.messageService.add({
-                    severity: 'success',
-                    summary: 'Successful',
-                    detail: 'User Created',
-                    life: 3000
+                // Create new user
+                const { id, ...newUser } = this.user;
+                console.log('newUser', newUser);
+                this.userService.createUser(newUser).subscribe({
+                    next: () => {
+                        this.messageService.add({
+                            severity: 'success',
+                            summary: 'Successful',
+                            detail: 'User Created',
+                            life: 3000
+                        });
+                        this.userDialog = false;
+                        this.resetUser();
+                        this.loadUsers(); // Reload data from server
+                    },
+                    error: (error) => {
+                        console.error('Error creating user', error);
+                        this.messageService.add({
+                            severity: 'error',
+                            summary: 'Error',
+                            detail: 'Failed to create user',
+                            life: 3000
+                        });
+                    }
                 });
-                this.users.set([..._users, this.user]);
             }
-
-            this.userDialog = false;
-            this.user = {
-                id: '',
-                username: '',
-                email: '',
-                role: 'user',
-                name: '',
-                status: 'pending'
-            };
         }
+    }
+
+    resetUser() {
+        this.user = {
+            id: '',
+            username: '',
+            email: '',
+            role: UserRole.User,
+            name: '',
+            status: UserStatus.Pending
+        };
     }
 }

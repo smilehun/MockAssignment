@@ -5,7 +5,6 @@
 
         <p-toolbar styleClass="mb-6">
             <ng-template #start>
-                <p-button label="New" icon="pi pi-plus" severity="secondary" class="mr-2" (onClick)="openNew()" [disabled]="!canManageUsers" />
                 <p-button severity="secondary" label="Delete" icon="pi pi-trash" outlined (onClick)="deleteSelectedUsers()" [disabled]="!selectedUsers || !selectedUsers.length || !canManageUsers" />
             </ng-template>
 
@@ -96,7 +95,7 @@
                     </div>
                     <div>
                         <label for="role" class="block font-bold mb-3">Role</label>
-                        <p-dropdown [(ngModel)]="user.role" inputId="role" [options]="['Admin', 'User', 'Guest']" placeholder="Select a Role" [style]="{ width: '100%' }" appendTo="body" fluid />
+                        <p-dropdown [(ngModel)]="user.role" inputId="role" [options]="filteredRoles" optionLabel="label" optionValue="value" placeholder="Select a Role" [style]="{ width: '100%' }" appendTo="body" fluid />
                         <small class="text-red-500" *ngIf="submitted && !user.role">Role is required.</small>
                     </div>
                     <div *ngIf="user.id">

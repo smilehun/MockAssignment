@@ -4,7 +4,7 @@ import { Observable, tap, BehaviorSubject, switchMap, map, throwError } from 'rx
 import { catchError } from 'rxjs/operators';
 import { AbilityService } from './ability.service';
 import { environment } from '../../environments/environment';
-import { User, LoginCredentials, RegisterData, UserProfile } from '../shared/models/user.model';
+import { User, LoginCredentials, RegisterData, UserProfile, UserRole, UserStatus } from '../shared/models/user.model';
 import { APP_CONSTANTS } from '../shared/constants/app.constants';
 import { UtilsService } from '../shared/services/utils.service';
 import { UserService } from './user.service'; // Import UserService
@@ -40,7 +40,7 @@ export class AuthService {
         if (initialUser && initialUser.role) {
             this.abilityService.updateAbility(initialUser.role);
         } else {
-            this.abilityService.updateAbility(APP_CONSTANTS.USER_ROLES.OWNER);
+            this.abilityService.updateAbility(UserRole.Owner);
         }
     }
 
@@ -62,7 +62,7 @@ export class AuthService {
                 const user = response.user;
                 const token = response.token;
 
-                if (user.status !== APP_CONSTANTS.USER_STATUSES.ACTIVE) {
+                if (user.status !== UserStatus.Active) {
                     throw new Error(APP_CONSTANTS.ERROR_MESSAGES.ACCOUNT_INACTIVE);
                 }
 
@@ -99,8 +99,8 @@ export class AuthService {
         const userToRegister = {
             ...userData,
             name: userData.name,
-            role: userData.role || APP_CONSTANTS.USER_ROLES.USER,
-            status: APP_CONSTANTS.USER_STATUSES.ACTIVE
+            role: userData.role || UserRole.User,
+            status: UserStatus.Active
         };
         return this.userService.createUser(userToRegister).pipe(
             catchError((error) => {
@@ -115,7 +115,7 @@ export class AuthService {
         this.utilsService.removeFromStorage(this.TOKEN_KEY);
         this.currentUserSubject.next(null);
         this.tokenSubject.next(null);
-        this.abilityService.updateAbility(APP_CONSTANTS.USER_ROLES.OWNER);
+        this.abilityService.updateAbility(UserRole.Owner);
     }
 
     // Method to update user profile
